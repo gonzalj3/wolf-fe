@@ -1,5 +1,5 @@
 import React from "react";
-//import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter, Route } from "react-router-dom";
 
 import Welcome from "./pages/welcome";
 
@@ -7,7 +7,11 @@ import Welcome from "./pages/welcome";
 import './App.css';*/
 
 function App() {
-  return <Welcome />;
+  return (
+    <BrowserRouter>
+      <Route exact path="/" component={Welcome} />
+    </BrowserRouter>
+  );
 }
 
 export default App;
