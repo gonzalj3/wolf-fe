@@ -23,21 +23,12 @@ export default function LogIn({ buttonTitle }) {
 
   const [openLogIn, setOpen] = React.useState(false);
 
-  const [openCreateAccount, setopenCreateAccount] = React.useState(false);
-
   const handleClickOpen = () => {
     setOpen(true);
   };
 
   const handleClose = () => {
     setOpen(false);
-  };
-  const handleOpenCreateAccount = () => {
-    //setOpen(false);
-    setopenCreateAccount(true);
-  };
-  const handleCloseCreateAccount = () => {
-    setopenCreateAccount(false);
   };
 
   return (
