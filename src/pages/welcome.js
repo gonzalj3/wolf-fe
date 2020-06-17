@@ -1,11 +1,13 @@
 import React from "react";
+
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import { makeStyles } from "@material-ui/core/styles";
-import { STUDENTJOIN, TEACHERJOIN } from "../Routes";
-const useStyles = makeStyles({
+
+import LogIn from "../components/dialog-LogIn";
+const useStyles = makeStyles((theme) => ({
   appBar: {
-    background: "orange",
+    background: "primary",
   },
   toolBar: {
     display: "flex",
@@ -17,25 +19,19 @@ const useStyles = makeStyles({
     border: "none",
     textDecoration: "none",
   },
-});
+}));
 
-const Welcome = () => {
+export default function Welcome() {
   const classes = useStyles();
   return (
     <div>
       <AppBar position="static" className={classes.appBar}>
         <Toolbar className={classes.toolBar}>
           <div></div>
-          <a href={TEACHERJOIN} className={classes.link}>
-            join as teacher
-          </a>
-          <a href={STUDENTJOIN} className={classes.link}>
-            join as student
-          </a>
+          <LogIn buttonTitle={`Teacher`} />
+          <LogIn buttonTitle={`Student`} />
         </Toolbar>
       </AppBar>
     </div>
   );
-};
-
-export default Welcome;
+}
