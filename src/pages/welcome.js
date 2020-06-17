@@ -13,12 +13,6 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "space-around",
   },
-  link: {
-    background: "transparent",
-    color: "white",
-    border: "none",
-    textDecoration: "none",
-  },
 }));
 
 export default function Welcome() {
