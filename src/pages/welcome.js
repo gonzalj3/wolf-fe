@@ -1,41 +1,49 @@
 import React from "react";
+
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import { makeStyles } from "@material-ui/core/styles";
-import { STUDENTJOIN, TEACHERJOIN } from "../Routes";
-const useStyles = makeStyles({
+import { Grid, makeStyles } from "@material-ui/core";
+
+import LogIn from "../components/dialog-LogIn";
+import NavBar from "../components/navbar";
+const useStyles = makeStyles((theme) => ({
   appBar: {
-    background: "orange",
+    background: "primary",
   },
   toolBar: {
     display: "flex",
     justifyContent: "space-around",
   },
-  link: {
-    background: "transparent",
-    color: "white",
-    border: "none",
-    textDecoration: "none",
+  img: {
+    backgroundImage: 'url("/images/teresa&kim.png")',
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "center",
+    backgroundSize: "cover",
   },
-});
+  vh100: {
+    height: "100vh",
+  },
+}));
 
-const Welcome = () => {
+export default function Welcome() {
   const classes = useStyles();
   return (
     <div>
-      <AppBar position="static" className={classes.appBar}>
-        <Toolbar className={classes.toolBar}>
+      <div>
+        <NavBar>
           <div></div>
-          <a href={TEACHERJOIN} className={classes.link}>
-            join as teacher
-          </a>
-          <a href={STUDENTJOIN} className={classes.link}>
-            join as student
-          </a>
-        </Toolbar>
-      </AppBar>
+          <LogIn buttonTitle={`Teacher`} />
+          <LogIn buttonTitle={`Student`} />
+        </NavBar>
+      </div>
+      <div>
+        {" "}
+        <Grid container className={classes.vh100}>
+          <Grid item md={12} xs={12} className={classes.img}>
+            {}
+          </Grid>
+        </Grid>
+      </div>
     </div>
   );
-};
-
-export default Welcome;
+}
