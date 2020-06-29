@@ -2,9 +2,10 @@ import React from "react";
 
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import { makeStyles } from "@material-ui/core/styles";
+import { Grid, makeStyles } from "@material-ui/core";
 
 import LogIn from "../components/dialog-LogIn";
+import NavBar from "../components/navbar";
 const useStyles = makeStyles((theme) => ({
   appBar: {
     background: "primary",
@@ -13,19 +14,36 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "space-around",
   },
+  img: {
+    backgroundImage: 'url("/images/teresa&kim.png")',
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "center",
+    backgroundSize: "cover",
+  },
+  vh100: {
+    height: "100vh",
+  },
 }));
 
 export default function Welcome() {
   const classes = useStyles();
   return (
     <div>
-      <AppBar position="static" className={classes.appBar}>
-        <Toolbar className={classes.toolBar}>
+      <div>
+        <NavBar>
           <div></div>
           <LogIn buttonTitle={`Teacher`} />
           <LogIn buttonTitle={`Student`} />
-        </Toolbar>
-      </AppBar>
+        </NavBar>
+      </div>
+      <div>
+        {" "}
+        <Grid container className={classes.vh100}>
+          <Grid item md={12} xs={12} className={classes.img}>
+            {}
+          </Grid>
+        </Grid>
+      </div>
     </div>
   );
 }

@@ -90,7 +90,7 @@ export default function LogIn({ buttonTitle }) {
         }
       })
       .catch((e) => {
-        console.log(e);
+        console.log(e.message);
         /*dispatchUser(fetchUserFailure(e.message));*/
         setServerResponse(e.message);
       });
