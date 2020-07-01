@@ -1,19 +1,9 @@
 import React from "react";
-
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
 import { Grid, makeStyles } from "@material-ui/core";
 
 import LogIn from "../components/dialog-LogIn";
 import NavBar from "../components/navbar";
 const useStyles = makeStyles((theme) => ({
-  appBar: {
-    background: "primary",
-  },
-  toolBar: {
-    display: "flex",
-    justifyContent: "space-around",
-  },
   img: {
     backgroundImage: 'url("/images/teresa&kim.png")',
     backgroundRepeat: "no-repeat",
