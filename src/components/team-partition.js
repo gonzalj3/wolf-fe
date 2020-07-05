@@ -6,19 +6,24 @@ import Typography from "@material-ui/core/Typography";
 
 const useStyle = makeStyles((theme) => ({
   container: {
+    width: "1500px",
+
     display: "flex",
     flexWrap: "wrap",
     flexDirection: "row",
-    padding: "16px",
     backgroundColor: "gray",
+    marginLeft: "25px",
+    marginRight: "25px",
+
+    border: "2px",
+    borderStyle: "solid",
+    borderColor: "yellow",
   },
   card: {
     height: "40vh",
-    margin: "auto",
-    width: "275px",
+    width: "220px",
     marginBottom: "10px",
     marginRight: "25px",
-    marginLeft: "25px",
     borderRadius: "8px",
     borderColor: "#759CFC",
     borderStyle: "solid",
@@ -27,12 +32,7 @@ const useStyle = makeStyles((theme) => ({
 }));
 export default function TeamPartition(props) {
   const classes = useStyle();
-  const data = [
-    "TeamPartition",
-    "TeamPartition",
-    "TeamPartition",
-    "TeamPartition",
-  ];
+  const data = ["TeamPartition", "TeamPartition", "TeamPartition"];
 
   return (
     <div className={classes.container}>
