@@ -15,10 +15,10 @@ const useStyle = makeStyles((theme) => ({
     flexWrap: "wrap",
     flexDirection: "row",
     padding: "16px",
-    backgroundColor: "gray",
-    border: "2px",
+    backgroundColor: "#D3D3D3",
+    /*border: "2px",
     borderStyle: "solid",
-    borderColor: "yellow",
+    borderColor: "yellow",*/
   },
 }));
 export default function GameBoard() {

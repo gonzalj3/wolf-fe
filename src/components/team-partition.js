@@ -12,13 +12,13 @@ const useStyle = makeStyles((theme) => ({
     display: "flex",
     flexWrap: "wrap",
     flexDirection: "row",
-    backgroundColor: "gray",
+    //backgroundColor: "#D3D3D3",
     marginLeft: "25px",
     marginRight: "25px",
-
+    /*
     border: "2px",
     borderStyle: "solid",
-    borderColor: "yellow",
+    borderColor: "yellow",*/
   },
   card: {
     height: "40vh",
@@ -34,16 +34,16 @@ const useStyle = makeStyles((theme) => ({
 export default function TeamPartition(props) {
   const classes = useStyle();
   const data = [
-    { name: "Red Wolves", score: "8" },
-    { name: "Yellow Wolves", score: "2" },
-    { name: "Green Wolves", score: "6" },
-    { name: "Blue Wolves", score: "7" },
+    { name: "Red Wolves", score: "8", color: "red" },
+    { name: "Yellow Wolves", score: "2", color: "yellow" },
+    { name: "Green Wolves", score: "6", color: "green" },
+    { name: "Blue Wolves", score: "7", color: "blue" },
   ];
 
   return (
     <div className={classes.container}>
       {data.map((item) => (
-        <Team name={item.name} score={item.score}></Team>
+        <Team name={item.name} score={item.score} color={item.color}></Team>
       ))}
     </div>
   );

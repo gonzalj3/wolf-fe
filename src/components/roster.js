@@ -6,43 +6,43 @@ import Typography from "@material-ui/core/Typography";
 
 const useStyle = makeStyles((theme) => ({
   assign: {
-    height: "10vh",
+    height: "5vh",
   },
   container: {
     width: "1500px",
-    height: "14vh",
+    height: "75px",
     display: "flex",
     flexWrap: "wrap",
     flexDirection: "row",
-    padding: "16px",
-    backgroundColor: "gray",
-    alignItems: "flex-end",
+    padding: "0px",
+    alignItems: "center",
     marginLeft: "25px",
     marginRight: "25px",
-    border: "2px",
-    borderStyle: "solid",
-    borderColor: "yellow",
   },
   unassigned: {
-    border: "2px",
-    borderStyle: "solid",
-    borderColor: "green",
+    borderRight: "solid 1px black",
+    padding: "4px",
+    backgroundColor: "#D3D3D3",
   },
   students: {
     display: "flex",
     flexDirection: "row",
-    border: "2px",
-    borderStyle: "solid",
-    borderColor: "green",
+    //width: "100%",
+    //height: "100%",
+    height: "75px",
+    flexGrow: "2",
+    border: "solid 1px black",
+    backgroundColor: "White",
   },
   card: {
     height: "7vh",
     width: "7vh",
-
     borderRadius: "8px",
     borderColor: "#759CFC",
     borderStyle: "solid",
     borderWidth: "1px",
+    marginLeft: "5px",
+    marginTop: "3px",
   },
   cardContent: {
     margin: "0px",
@@ -63,11 +63,11 @@ export default function Roster(props) {
 
   return (
     <div className={classes.container}>
-      <div className={classes.unassigned}>
-        <Typography>Unassigned:</Typography>
-        <Button>Random Assign</Button>
-      </div>
       <div className={classes.students}>
+        <div className={classes.unassigned}>
+          <Typography>Unassigned:</Typography>
+          <Button variant="contained">Random Assign</Button>
+        </div>
         {data.map((item) => (
           <Card className={classes.card}>
             <CardContent className={classes.cardContent}>
@@ -76,7 +76,9 @@ export default function Roster(props) {
           </Card>
         ))}
       </div>
-      <div>Add Team</div>
+      <Button variant="contained" style={{ marginLeft: "5px" }}>
+        Add Team
+      </Button>
     </div>
   );
 }

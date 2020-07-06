@@ -17,7 +17,7 @@ const useStyle = makeStyles((theme) => ({
     marginBottom: "10px",
     marginRight: "25px",
     borderRadius: "8px",
-    borderColor: "#759CFC",
+    //borderColor: "#759CFC",
     borderStyle: "solid",
     borderWidth: "1px",
   },
@@ -29,6 +29,7 @@ const useStyle = makeStyles((theme) => ({
     flexDirection: "row",
     borderBottom: "solid black ",
     padding: "0px 0px 0px 0px",
+    backgroundColor: "white",
   },
   arrowSections: {
     display: "flex",
@@ -47,7 +48,7 @@ export default function Team(props) {
   const classes = useStyle();
   return (
     <div>
-      <Card className={classes.card}>
+      <Card className={classes.card} style={{ backgroundColor: props.color }}>
         <CardContent className={classes.cardContent}>
           <div className={classes.teamName}>
             <Typography>{props.name}</Typography>
