@@ -5,51 +5,24 @@ import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 
 const useStyle = makeStyles((theme) => ({
-  queryPrompt: {
-    width: "1500px",
+  queryContainer: {
+    display: "flex",
+    justifyContent: "center",
+    flexDirection: "row",
+    marginBottom: "25px",
   },
-  assign: {
-    height: "10vh",
+  students: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
   },
   container: {
     width: "90%",
     height: "14vh",
     display: "flex",
-    flexWrap: "wrap",
-    flexDirection: "row",
+    flexDirection: "column",
     padding: "16px",
-    backgroundColor: "gray",
-    alignItems: "flex-end",
     marginLeft: "5%",
-    //marginRight: "25px",
-    border: "2px",
-    borderStyle: "solid",
-    borderColor: "yellow",
-  },
-  unassigned: {
-    border: "2px",
-    borderStyle: "solid",
-    borderColor: "green",
-  },
-  students: {
-    display: "flex",
-    flexDirection: "row",
-    border: "2px",
-    borderStyle: "solid",
-    borderColor: "green",
-  },
-  card: {
-    height: "7vh",
-    width: "7vh",
-
-    borderRadius: "8px",
-    borderColor: "#759CFC",
-    borderStyle: "solid",
-    borderWidth: "1px",
-  },
-  cardContent: {
-    margin: "0px",
-    padding: "0px",
   },
   font: {
     fontSize: 10,
@@ -66,7 +39,10 @@ export default function Query(props) {
 
   return (
     <div className={classes.container}>
-      <div className={classes.queryPrompt}>new question:</div>
+      <div className={classes.queryContainer}>
+        <div>new question:</div>
+      </div>
+
       <div className={classes.students}>
         <Button variant="contained">True/False</Button>
       </div>

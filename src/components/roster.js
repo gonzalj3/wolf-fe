@@ -3,6 +3,9 @@ import { makeStyles, Button } from "@material-ui/core";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
+import { Draggable } from "react-beautiful-dnd";
+import Student from "../components/student-Card";
+import { Droppable } from "react-beautiful-dnd";
 
 const useStyle = makeStyles((theme) => ({
   assign: {
@@ -65,17 +68,21 @@ export default function Roster(props) {
     <div className={classes.container}>
       <div className={classes.students}>
         <div className={classes.unassigned}>
-          <Typography>Unassigned:</Typography>
+          <Typography>Unassigned</Typography>
           <Button variant="contained">Random Assign</Button>
         </div>
-        {data.map((item) => (
-          <Card className={classes.card}>
-            <CardContent className={classes.cardContent}>
-              <Typography className={classes.font}>{item}</Typography>
-            </CardContent>
-          </Card>
-        ))}
+        <Droppable droppableId={"123"}>
+          {(provided) => (
+            <div {...provided.droppableProps} ref={provided.innerRef}>
+              {provided.placeholder}
+              {data.map((item, index) => (
+                <Student name={item} index={index}></Student>
+              ))}
+            </div>
+          )}
+        </Droppable>
       </div>
+
       <Button variant="contained" style={{ marginLeft: "5px" }}>
         Add Team
       </Button>

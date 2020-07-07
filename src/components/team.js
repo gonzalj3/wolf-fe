@@ -5,7 +5,7 @@ import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
-
+import { Droppable } from "react-beautiful-dnd";
 const useStyle = makeStyles((theme) => ({
   teamName: {
     borderBottom: "solid black ",
@@ -60,8 +60,13 @@ export default function Team(props) {
               <ArrowDropDownIcon className={classes.arrows}></ArrowDropDownIcon>
             </div>
           </div>
-
-          <div>names</div>
+          <Droppable droppableId={props.id}>
+            {(provided) => (
+              <div {...provided.droppableProps} ref={provided.innerRef}>
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
         </CardContent>
       </Card>
     </div>

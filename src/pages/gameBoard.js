@@ -8,6 +8,7 @@ import Roster from "../components/roster";
 import TeamPartition from "../components/team-partition";
 import Query from "../components/query";
 import { makeStyles } from "@material-ui/core";
+import { DragDropContext } from "react-beautiful-dnd";
 
 const useStyle = makeStyles((theme) => ({
   container: {
@@ -23,7 +24,9 @@ const useStyle = makeStyles((theme) => ({
 }));
 export default function GameBoard() {
   const classes = useStyle();
-
+  function onDragEnd(result) {
+    //
+  }
   return (
     <div>
       <NavBar>
@@ -32,10 +35,12 @@ export default function GameBoard() {
         <ReportButton />
         <ExpandMoreIcon />
       </NavBar>
-      <div className={classes.container}>
-        <TeamPartition></TeamPartition>
-        <Roster></Roster>
-      </div>
+      <DragDropContext onDragEnd={onDragEnd}>
+        <div className={classes.container}>
+          <TeamPartition></TeamPartition>
+          <Roster></Roster>
+        </div>
+      </DragDropContext>
       <Query></Query>
     </div>
   );

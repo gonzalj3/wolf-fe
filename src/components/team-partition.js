@@ -1,9 +1,8 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core";
 import Team from "../components/team";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import Typography from "@material-ui/core/Typography";
+
+import initialData from "../data/initial-data";
 
 const useStyle = makeStyles((theme) => ({
   container: {
@@ -33,17 +32,22 @@ const useStyle = makeStyles((theme) => ({
 }));
 export default function TeamPartition(props) {
   const classes = useStyle();
-  const data = [
+  /*const data = [
     { name: "Red Wolves", score: "8", color: "red" },
     { name: "Yellow Wolves", score: "2", color: "yellow" },
     { name: "Green Wolves", score: "6", color: "green" },
     { name: "Blue Wolves", score: "7", color: "blue" },
-  ];
+  ];*/
 
   return (
     <div className={classes.container}>
-      {data.map((item) => (
-        <Team name={item.name} score={item.score} color={item.color}></Team>
+      {initialData.teams.map((item) => (
+        <Team
+          id={item.id}
+          name={item.name}
+          score={item.score}
+          color={item.color}
+        ></Team>
       ))}
     </div>
   );
