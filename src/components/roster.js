@@ -3,9 +3,9 @@ import { makeStyles, Button } from "@material-ui/core";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
-import { Draggable } from "react-beautiful-dnd";
 import Student from "../components/student-Card";
-import { Droppable } from "react-beautiful-dnd";
+import { Draggable, Droppable } from "react-beautiful-dnd";
+import initialData from "../data/initial-data";
 
 const useStyle = makeStyles((theme) => ({
   assign: {
@@ -13,7 +13,7 @@ const useStyle = makeStyles((theme) => ({
   },
   container: {
     width: "1500px",
-    height: "75px",
+    height: "95px",
     display: "flex",
     flexWrap: "wrap",
     flexDirection: "row",
@@ -21,6 +21,13 @@ const useStyle = makeStyles((theme) => ({
     alignItems: "center",
     marginLeft: "25px",
     marginRight: "25px",
+  },
+  dropInner: {
+    display: "flex",
+    flexDirection: "row",
+    width: "100%",
+    height: "100%",
+    padding: "8px",
   },
   unassigned: {
     borderRight: "solid 1px black",
@@ -32,7 +39,7 @@ const useStyle = makeStyles((theme) => ({
     flexDirection: "row",
     //width: "100%",
     //height: "100%",
-    height: "75px",
+    height: "85px",
     flexGrow: "2",
     border: "solid 1px black",
     backgroundColor: "White",
@@ -55,14 +62,8 @@ const useStyle = makeStyles((theme) => ({
     fontSize: 10,
   },
 }));
-export default function Roster(props) {
+export default function Roster({ rosterList }) {
   const classes = useStyle();
-  const data = [
-    "Jose M Gonzalez",
-    "Jose M Gonzalez",
-    "Jose M Gonzalez",
-    "Jose M Gonzalez",
-  ];
 
   return (
     <div className={classes.container}>
@@ -71,13 +72,20 @@ export default function Roster(props) {
           <Typography>Unassigned</Typography>
           <Button variant="contained">Random Assign</Button>
         </div>
-        <Droppable droppableId={"123"}>
+        <Droppable droppableId={rosterList.droppableID} direction="horizontal">
           {(provided) => (
-            <div {...provided.droppableProps} ref={provided.innerRef}>
+            <div
+              className={classes.dropInner}
+              {...provided.droppableProps}
+              ref={provided.innerRef}
+            >
+              {rosterList.roster.students.map((number, index) => {
+                const student = rosterList.students[number];
+                return (
+                  <Student key={student.id} student={student} index={index} />
+                );
+              })}
               {provided.placeholder}
-              {data.map((item, index) => (
-                <Student name={item} index={index}></Student>
-              ))}
             </div>
           )}
         </Droppable>

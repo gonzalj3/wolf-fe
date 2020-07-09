@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import NavBar from "../components/navbar";
 import GameCode from "../components/gamecode-button";
 import ScoreBoardButton from "../components/scoreboard-button";
@@ -9,6 +9,7 @@ import TeamPartition from "../components/team-partition";
 import Query from "../components/query";
 import { makeStyles } from "@material-ui/core";
 import { DragDropContext } from "react-beautiful-dnd";
+import initialData from "../data/initial-data";
 
 const useStyle = makeStyles((theme) => ({
   container: {
@@ -24,8 +25,36 @@ const useStyle = makeStyles((theme) => ({
 }));
 export default function GameBoard() {
   const classes = useStyle();
+  let [data, setData] = useState(initialData);
+
   function onDragEnd(result) {
     //
+    const { destination, source, draggableId } = result;
+    if (!destination) {
+      return;
+    }
+    if (
+      destination.droppableId === source.droppableId &&
+      destination.index === source.index
+    ) {
+      return;
+    }
+
+    const newStudents = Array.from(data.roster.students);
+    console.log(newStudents);
+    newStudents.splice(source.index, 1);
+    newStudents.splice(destination.index, 0, draggableId);
+    console.log(newStudents);
+    const newRoster = {
+      students: newStudents,
+    };
+
+    const newData = {
+      ...data,
+      roster: newRoster,
+    };
+
+    setData(newData);
   }
   return (
     <div>
@@ -38,7 +67,7 @@ export default function GameBoard() {
       <DragDropContext onDragEnd={onDragEnd}>
         <div className={classes.container}>
           <TeamPartition></TeamPartition>
-          <Roster></Roster>
+          <Roster rosterList={data}></Roster>
         </div>
       </DragDropContext>
       <Query></Query>

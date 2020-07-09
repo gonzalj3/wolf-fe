@@ -6,6 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 import { Droppable } from "react-beautiful-dnd";
+import { red } from "@material-ui/core/colors";
 const useStyle = makeStyles((theme) => ({
   teamName: {
     borderBottom: "solid black ",
@@ -42,8 +43,15 @@ const useStyle = makeStyles((theme) => ({
     fontSize: "75px",
   },
   arrows: { fontSize: "60px", padding: "0px" },
+  teamCollection: {
+    backgroundColor: "red",
+  },
 }));
-
+/*function TeamCollection(desc){
+  const { isDraggingOver, ...other} = desc;
+  const classes = usesStyles(desc)
+  return <div></div>
+}*/
 export default function Team(props) {
   const classes = useStyle();
   return (
@@ -61,8 +69,13 @@ export default function Team(props) {
             </div>
           </div>
           <Droppable droppableId={props.id}>
-            {(provided) => (
-              <div {...provided.droppableProps} ref={provided.innerRef}>
+            {(provided, snapshot) => (
+              <div
+                {...provided.droppableProps}
+                ref={provided.innerRef}
+                isDraggingOver={snapshot.isDraggingOver}
+                className={classes.teamCollection}
+              >
                 {provided.placeholder}
               </div>
             )}

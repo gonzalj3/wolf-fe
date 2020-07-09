@@ -1,7 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core";
 import Team from "../components/team";
-
 import initialData from "../data/initial-data";
 
 const useStyle = makeStyles((theme) => ({
@@ -32,12 +31,6 @@ const useStyle = makeStyles((theme) => ({
 }));
 export default function TeamPartition(props) {
   const classes = useStyle();
-  /*const data = [
-    { name: "Red Wolves", score: "8", color: "red" },
-    { name: "Yellow Wolves", score: "2", color: "yellow" },
-    { name: "Green Wolves", score: "6", color: "green" },
-    { name: "Blue Wolves", score: "7", color: "blue" },
-  ];*/
 
   return (
     <div className={classes.container}>
