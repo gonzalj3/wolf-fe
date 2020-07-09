@@ -34,12 +34,14 @@ export default function TeamPartition(props) {
 
   return (
     <div className={classes.container}>
-      {initialData.teams.map((item) => (
+      {props.data.teams.map((item) => (
         <Team
           id={item.id}
           name={item.name}
           score={item.score}
           color={item.color}
+          rosterList={item.teamRoster}
+          students={props.data.students}
         ></Team>
       ))}
     </div>

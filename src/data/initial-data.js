@@ -1,9 +1,27 @@
 const initialData = {
   teams: [
-    { id: "red", name: "Red Wolves", score: "8", color: "red" },
-    { id: "yellow", name: "Yellow Wolves", score: "2", color: "yellow" },
-    { id: "green", name: "Green Wolves", score: "6", color: "green" },
-    { id: "blue", name: "Blue Wolves", score: "7", color: "blue" },
+    { id: "red", name: "Red Wolves", score: "8", color: "red", teamRoster: [] },
+    {
+      id: "yellow",
+      name: "Yellow Wolves",
+      score: "2",
+      color: "yellow",
+      teamRoster: [],
+    },
+    {
+      id: "green",
+      name: "Green Wolves",
+      score: "6",
+      color: "green",
+      teamRoster: [],
+    },
+    {
+      id: "blue",
+      name: "Blue Wolves",
+      score: "7",
+      color: "blue",
+      teamRoster: [],
+    },
   ],
   students: {
     1: { id: "1", name: "Jose M Gonzalez" },
@@ -12,9 +30,9 @@ const initialData = {
     4: { id: "4", name: "Marquis" },
   },
   roster: {
-    students: [1, 2, 3, 4],
+    droppableID: "0012",
+    students: ["1", "2", "3", "4"],
   },
-  droppableID: "0012",
 };
 
 export default initialData;

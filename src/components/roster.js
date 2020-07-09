@@ -72,7 +72,10 @@ export default function Roster({ rosterList }) {
           <Typography>Unassigned</Typography>
           <Button variant="contained">Random Assign</Button>
         </div>
-        <Droppable droppableId={rosterList.droppableID} direction="horizontal">
+        <Droppable
+          droppableId={rosterList.roster.droppableID}
+          direction="horizontal"
+        >
           {(provided) => (
             <div
               className={classes.dropInner}

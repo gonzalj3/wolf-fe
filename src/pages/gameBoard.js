@@ -29,32 +29,52 @@ export default function GameBoard() {
 
   function onDragEnd(result) {
     //
+    console.log("in ondragend");
     const { destination, source, draggableId } = result;
     if (!destination) {
+      console.log("nodestination");
       return;
     }
     if (
       destination.droppableId === source.droppableId &&
       destination.index === source.index
     ) {
+      console.log("droppable adn index same");
+
+      return;
+    }
+    const start = source.droppableId;
+    const finish = destination.droppableId;
+    console.log(start, finish);
+    if (start === finish) {
+      console.log(start, finish);
+      const roster = data.roster;
+      const newStudents = Array.from(data.roster.students);
+      console.log(newStudents);
+      newStudents.splice(source.index, 1);
+      newStudents.splice(destination.index, 0, draggableId);
+      console.log(newStudents);
+      const newRoster = {
+        ...roster,
+        students: newStudents,
+      };
+
+      const newData = {
+        ...data,
+        roster: newRoster,
+      };
+
+      setData(newData);
       return;
     }
 
-    const newStudents = Array.from(data.roster.students);
-    console.log(newStudents);
-    newStudents.splice(source.index, 1);
-    newStudents.splice(destination.index, 0, draggableId);
-    console.log(newStudents);
-    const newRoster = {
-      students: newStudents,
-    };
+    //Move from roster to a team
+    /*if(data.roster.droppableId == start){
 
-    const newData = {
-      ...data,
-      roster: newRoster,
-    };
-
-    setData(newData);
+    } else {
+      
+    }
+    const startArray = */
   }
   return (
     <div>
@@ -66,7 +86,7 @@ export default function GameBoard() {
       </NavBar>
       <DragDropContext onDragEnd={onDragEnd}>
         <div className={classes.container}>
-          <TeamPartition></TeamPartition>
+          <TeamPartition data={data}></TeamPartition>
           <Roster rosterList={data}></Roster>
         </div>
       </DragDropContext>

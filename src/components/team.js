@@ -7,6 +7,8 @@ import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 import { Droppable } from "react-beautiful-dnd";
 import { red } from "@material-ui/core/colors";
+import Student from "../components/student-Card";
+
 const useStyle = makeStyles((theme) => ({
   teamName: {
     borderBottom: "solid black ",
@@ -45,6 +47,7 @@ const useStyle = makeStyles((theme) => ({
   arrows: { fontSize: "60px", padding: "0px" },
   teamCollection: {
     backgroundColor: "red",
+    minHeight: "200px",
   },
 }));
 /*function TeamCollection(desc){
@@ -68,14 +71,19 @@ export default function Team(props) {
               <ArrowDropDownIcon className={classes.arrows}></ArrowDropDownIcon>
             </div>
           </div>
-          <Droppable droppableId={props.id}>
-            {(provided, snapshot) => (
+          <Droppable droppableId={props.id} direction="horizontal">
+            {(provided) => (
               <div
+                className={classes.teamCollection}
                 {...provided.droppableProps}
                 ref={provided.innerRef}
-                isDraggingOver={snapshot.isDraggingOver}
-                className={classes.teamCollection}
               >
+                {props.rosterList.map((number, index) => {
+                  const student = props.students[number];
+                  return (
+                    <Student key={student.id} student={student} index={index} />
+                  );
+                })}
                 {provided.placeholder}
               </div>
             )}
