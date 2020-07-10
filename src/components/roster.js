@@ -73,7 +73,7 @@ export default function Roster({ rosterList }) {
           <Button variant="contained">Random Assign</Button>
         </div>
         <Droppable
-          droppableId={rosterList.roster.droppableID}
+          droppableId={rosterList.droppable.roster.id}
           direction="horizontal"
         >
           {(provided) => (
@@ -82,7 +82,7 @@ export default function Roster({ rosterList }) {
               {...provided.droppableProps}
               ref={provided.innerRef}
             >
-              {rosterList.roster.students.map((number, index) => {
+              {rosterList.droppable.roster.students.map((number, index) => {
                 const student = rosterList.students[number];
                 return (
                   <Student key={student.id} student={student} index={index} />

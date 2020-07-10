@@ -43,25 +43,27 @@ export default function GameBoard() {
 
       return;
     }
-    const start = source.droppableId;
-    const finish = destination.droppableId;
+    const start = data.droppable[source.droppableId];
+    const finish = data.droppable[destination.droppableId];
     console.log(start, finish);
     if (start === finish) {
       console.log(start, finish);
-      const roster = data.roster;
-      const newStudents = Array.from(data.roster.students);
+      const newStudents = Array.from(start.students);
       console.log(newStudents);
       newStudents.splice(source.index, 1);
       newStudents.splice(destination.index, 0, draggableId);
       console.log(newStudents);
       const newRoster = {
-        ...roster,
+        ...start,
         students: newStudents,
       };
 
       const newData = {
         ...data,
-        roster: newRoster,
+        droppable: {
+          ...data.droppable,
+          [start.id]: newRoster,
+        },
       };
 
       setData(newData);
@@ -69,12 +71,31 @@ export default function GameBoard() {
     }
 
     //Move from roster to a team
-    /*if(data.roster.droppableId == start){
+    const startStudents = Array.from(start.students);
+    startStudents.splice(source.index, 1);
+    const newStart = {
+      ...start,
+      students: startStudents,
+    };
 
-    } else {
-      
-    }
-    const startArray = */
+    const finishStudents = Array.from(finish.students);
+    finishStudents.splice(destination.index, 0, draggableId);
+    const newFinish = {
+      ...finish,
+      students: finishStudents,
+    };
+
+    const newData = {
+      ...data,
+      droppable: {
+        ...data.droppable,
+        [newStart.id]: newStart,
+        [newFinish.id]: newFinish,
+      },
+    };
+    console.log(newData);
+    setData(newData);
+    return;
   }
   return (
     <div>

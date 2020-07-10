@@ -34,16 +34,20 @@ export default function TeamPartition(props) {
 
   return (
     <div className={classes.container}>
-      {props.data.teams.map((item) => (
-        <Team
-          id={item.id}
-          name={item.name}
-          score={item.score}
-          color={item.color}
-          rosterList={item.teamRoster}
-          students={props.data.students}
-        ></Team>
-      ))}
+      {props.data.TeamOrder.map((item) => {
+        const team = props.data.droppable[item];
+        console.log(item, team);
+        return (
+          <Team
+            id={team.id}
+            name={team.name}
+            score={team.score}
+            color={team.color}
+            rosterList={team.students}
+            students={props.data.students}
+          ></Team>
+        );
+      })}
     </div>
   );
 }
