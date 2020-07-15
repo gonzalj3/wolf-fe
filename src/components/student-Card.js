@@ -7,22 +7,23 @@ import { Draggable } from "react-beautiful-dnd";
 
 const useStyle = makeStyles((theme) => ({
   card: {
-    height: "7vh",
-    width: "7vh",
+    height: "9vh",
+    width: "9vh",
     borderRadius: "8px",
     borderColor: "#759CFC",
     borderStyle: "solid",
     borderWidth: "1px",
     marginLeft: "5px",
     marginTop: "3px",
+    padding: "2px",
+    fontSize: 12,
+    wordBreak: "break-word",
   },
   cardContent: {
     margin: "0px",
     padding: "0px",
   },
-  font: {
-    fontSize: 10,
-  },
+  font: {},
 }));
 
 export default function Student({ student, index }) {

@@ -65,7 +65,7 @@ export default function LogIn({ buttonTitle }) {
           console.log("login successfully");
 
           //Redirect to dashboard
-          window.location.replace("/dashboard");
+          window.location.replace("/gameboard");
         } else {
           throw Error(res.error);
         }

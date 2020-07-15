@@ -15,24 +15,23 @@ const useStyle = makeStyles((theme) => ({
     padding: "10px",
   },
   card: {
-    height: "40vh",
+    height: "50vh",
     width: "220px",
     marginBottom: "10px",
     marginRight: "25px",
     borderRadius: "8px",
-    //borderColor: "#759CFC",
-    borderStyle: "solid",
-    borderWidth: "1px",
   },
   cardContent: {
     padding: "0px 0px 0px 0px",
+    height: "100%",
   },
   scoreSection: {
     display: "flex",
     flexDirection: "row",
     borderBottom: "solid black ",
-    padding: "0px 0px 0px 0px",
+    padding: "5px 0px 5px 0px",
     backgroundColor: "white",
+    height: "95px",
   },
   arrowSections: {
     display: "flex",
@@ -46,15 +45,14 @@ const useStyle = makeStyles((theme) => ({
   },
   arrows: { fontSize: "60px", padding: "0px" },
   teamCollection: {
-    backgroundColor: "red",
-    minHeight: "200px",
+    minHeight: "150px",
+    display: "flex",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    alignItems: "flex-start",
   },
 }));
-/*function TeamCollection(desc){
-  const { isDraggingOver, ...other} = desc;
-  const classes = usesStyles(desc)
-  return <div></div>
-}*/
+
 export default function Team(props) {
   const classes = useStyle();
   return (

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import NavBar from "../components/navbar";
 import GameCode from "../components/gamecode-button";
 import ScoreBoardButton from "../components/scoreboard-button";
@@ -10,7 +10,7 @@ import Query from "../components/query";
 import { makeStyles } from "@material-ui/core";
 import { DragDropContext } from "react-beautiful-dnd";
 import initialData from "../data/initial-data";
-
+import { authFetch } from "../helpers/authFetch.js";
 const useStyle = makeStyles((theme) => ({
   container: {
     display: "flex",
@@ -18,14 +18,25 @@ const useStyle = makeStyles((theme) => ({
     flexDirection: "row",
     padding: "16px",
     backgroundColor: "#D3D3D3",
-    /*border: "2px",
-    borderStyle: "solid",
-    borderColor: "yellow",*/
   },
 }));
 export default function GameBoard() {
   const classes = useStyle();
-  let [data, setData] = useState(initialData);
+  let [data, setData] = useState(null);
+  const url = "http://localhost:4000/api/game/current";
+
+  useEffect(() => {
+    authFetch(url)
+      .then((res) => res.json())
+      .then((res) => {
+        console.log("got response");
+        console.log(res);
+        setData(res);
+      })
+      .catch((error) => {
+        console.log("error", error);
+      });
+  }, data);
 
   function onDragEnd(result) {
     //
@@ -97,6 +108,19 @@ export default function GameBoard() {
     setData(newData);
     return;
   }
+  function TeamsAndRoster(props) {
+    const gameInfo = props.data;
+    if (gameInfo) {
+      return (
+        <div className={classes.container}>
+          <TeamPartition data={data}></TeamPartition>
+          <Roster rosterList={data}></Roster>
+        </div>
+      );
+    } else {
+      return null;
+    }
+  }
   return (
     <div>
       <NavBar>
@@ -106,10 +130,7 @@ export default function GameBoard() {
         <ExpandMoreIcon />
       </NavBar>
       <DragDropContext onDragEnd={onDragEnd}>
-        <div className={classes.container}>
-          <TeamPartition data={data}></TeamPartition>
-          <Roster rosterList={data}></Roster>
-        </div>
+        <TeamsAndRoster data={data} />
       </DragDropContext>
       <Query></Query>
     </div>

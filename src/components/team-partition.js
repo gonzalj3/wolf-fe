@@ -6,27 +6,12 @@ import initialData from "../data/initial-data";
 const useStyle = makeStyles((theme) => ({
   container: {
     width: "1500px",
-
     display: "flex",
     flexWrap: "wrap",
     flexDirection: "row",
-    //backgroundColor: "#D3D3D3",
     marginLeft: "25px",
     marginRight: "25px",
-    /*
-    border: "2px",
-    borderStyle: "solid",
-    borderColor: "yellow",*/
-  },
-  card: {
-    height: "40vh",
-    width: "220px",
-    marginBottom: "10px",
-    marginRight: "25px",
-    borderRadius: "8px",
-    borderColor: "#759CFC",
-    borderStyle: "solid",
-    borderWidth: "1px",
+    justifyContent: "center",
   },
 }));
 export default function TeamPartition(props) {

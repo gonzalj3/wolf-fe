@@ -9,7 +9,7 @@ const useStyle = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "center",
     flexDirection: "row",
-    marginBottom: "25px",
+    marginBottom: "10px",
   },
   students: {
     display: "flex",
@@ -23,6 +23,7 @@ const useStyle = makeStyles((theme) => ({
     flexDirection: "column",
     padding: "16px",
     marginLeft: "5%",
+    flexWrap: "nowrap",
   },
   font: {
     fontSize: 10,
@@ -30,12 +31,6 @@ const useStyle = makeStyles((theme) => ({
 }));
 export default function Query(props) {
   const classes = useStyle();
-  const data = [
-    "Jose M Gonzalez",
-    "Jose M Gonzalez",
-    "Jose M Gonzalez",
-    "Jose M Gonzalez",
-  ];
 
   return (
     <div className={classes.container}>

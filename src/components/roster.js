@@ -12,7 +12,7 @@ const useStyle = makeStyles((theme) => ({
     height: "5vh",
   },
   container: {
-    width: "1500px",
+    width: "95%",
     height: "95px",
     display: "flex",
     flexWrap: "wrap",
@@ -40,7 +40,7 @@ const useStyle = makeStyles((theme) => ({
     //width: "100%",
     //height: "100%",
     height: "85px",
-    flexGrow: "2",
+    flexGrow: "1",
     border: "solid 1px black",
     backgroundColor: "White",
   },
@@ -67,10 +67,10 @@ export default function Roster({ rosterList }) {
 
   return (
     <div className={classes.container}>
-      <div className={classes.students}>
+      <Card className={classes.students}>
         <div className={classes.unassigned}>
           <Typography>Unassigned</Typography>
-          <Button variant="contained">Random Assign</Button>
+          <Button variant="contained">Random </Button>
         </div>
         <Droppable
           droppableId={rosterList.droppable.roster.id}
@@ -92,7 +92,7 @@ export default function Roster({ rosterList }) {
             </div>
           )}
         </Droppable>
-      </div>
+      </Card>
 
       <Button variant="contained" style={{ marginLeft: "5px" }}>
         Add Team
