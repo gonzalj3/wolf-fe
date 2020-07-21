@@ -2,6 +2,7 @@ import React from "react";
 import { Grid, makeStyles } from "@material-ui/core";
 
 import LogIn from "../components/dialog-LogIn";
+import JoinGame from "../components/dialog-JoinGame";
 import NavBar from "../components/navbar";
 const useStyles = makeStyles((theme) => ({
   img: {
@@ -23,7 +24,7 @@ export default function Welcome() {
         <NavBar>
           <div></div>
           <LogIn buttonTitle={`Teacher`} />
-          <LogIn buttonTitle={`Student`} />
+          <JoinGame buttonTitle={`Student`} />
         </NavBar>
       </div>
       <div>
