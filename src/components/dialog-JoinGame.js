@@ -40,7 +40,7 @@ export default function JoinGame({ buttonTitle }) {
     console.log("info getting conveyed");
     console.log(gameCode, firstName, lastName);
     //Make a request to backend
-    const url = "http://localhost:4000/api/login";
+    const url = "http://localhost:4000/api/joinGame";
     const options = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
