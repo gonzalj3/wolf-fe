@@ -1,48 +1,38 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import Typography from "@material-ui/core/Typography";
+import Team from "../components/team";
+import initialData from "../data/initial-data";
 
 const useStyle = makeStyles((theme) => ({
   container: {
+    width: "1500px",
     display: "flex",
     flexWrap: "wrap",
     flexDirection: "row",
-    padding: "16px",
-    backgroundColor: "gray",
-  },
-  card: {
-    height: "40vh",
-    margin: "auto",
-    width: "275px",
-    marginBottom: "10px",
-    marginRight: "25px",
     marginLeft: "25px",
-    borderRadius: "8px",
-    borderColor: "#759CFC",
-    borderStyle: "solid",
-    borderWidth: "1px",
+    marginRight: "25px",
+    justifyContent: "center",
   },
 }));
 export default function TeamPartition(props) {
   const classes = useStyle();
-  const data = [
-    "TeamPartition",
-    "TeamPartition",
-    "TeamPartition",
-    "TeamPartition",
-  ];
 
   return (
     <div className={classes.container}>
-      {data.map((item) => (
-        <Card className={classes.card}>
-          <CardContent>
-            <Typography>{item}</Typography>
-          </CardContent>
-        </Card>
-      ))}
+      {props.data.TeamOrder.map((item) => {
+        const team = props.data.droppable[item];
+        console.log(item, team);
+        return (
+          <Team
+            id={team.id}
+            name={team.name}
+            score={team.score}
+            color={team.color}
+            rosterList={team.students}
+            students={props.data.students}
+          ></Team>
+        );
+      })}
     </div>
   );
 }
