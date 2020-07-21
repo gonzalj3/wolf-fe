@@ -83,7 +83,13 @@ export default function Roster({ rosterList }) {
               ref={provided.innerRef}
             >
               {rosterList.droppable.roster.students.map((number, index) => {
+                console.log("number", number, index);
                 const student = rosterList.students[number];
+                console.log(
+                  "rosterlist students in roster"
+                  //rosterList.students.keys()
+                );
+                console.log("student in roster id", student);
                 return (
                   <Student key={student.id} student={student} index={index} />
                 );
