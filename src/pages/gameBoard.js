@@ -36,7 +36,7 @@ export default function GameBoard() {
       .catch((error) => {
         console.log("error", error);
       });
-  }, data);
+  }, [data]);
 
   function onDragEnd(result) {
     //
@@ -108,6 +108,15 @@ export default function GameBoard() {
     setData(newData);
     return;
   }
+  function GameCodeVerifier(props) {
+    const data = props.data;
+    if (data) {
+      return <GameCode code={data.gameCode} />;
+    } else {
+      return null;
+    }
+  }
+
   function TeamsAndRoster(props) {
     const gameInfo = props.data;
     if (gameInfo) {
@@ -124,7 +133,7 @@ export default function GameBoard() {
   return (
     <div>
       <NavBar>
-        <GameCode code={123} />
+        <GameCodeVerifier data={data} />
         <ScoreBoardButton />
         <ReportButton />
         <ExpandMoreIcon />
