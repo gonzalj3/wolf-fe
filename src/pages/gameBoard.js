@@ -36,7 +36,7 @@ export default function GameBoard() {
       .catch((error) => {
         console.log("error", error);
       });
-  }, [data]);
+  }, data);
 
   function onDragEnd(result) {
     //

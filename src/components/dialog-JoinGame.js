@@ -40,7 +40,7 @@ export default function JoinGame({ buttonTitle }) {
     console.log("info getting conveyed");
     console.log(gameCode, firstName, lastName);
     //Make a request to backend
-    const url = "http://localhost:4000/api/joinGame";
+    const url = "http://localhost:4000/api/joinGame/student";
     const options = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -72,7 +72,7 @@ export default function JoinGame({ buttonTitle }) {
         }
       })
       .catch((e) => {
-        console.log(e.message);
+        console.log("error", e.message);
         /*dispatchUser(fetchUserFailure(e.message));*/
         setServerResponse(e.message);
       });
