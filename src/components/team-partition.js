@@ -30,6 +30,7 @@ export default function TeamPartition(props) {
             color={team.color}
             rosterList={team.students}
             students={props.data.students}
+            isTeacher={props.isTeacher}
           ></Team>
         );
       })}

@@ -52,6 +52,54 @@ const useStyle = makeStyles((theme) => ({
     alignItems: "flex-start",
   },
 }));
+function StudentSection(props) {
+  const classes = useStyle();
+
+  const isTeacher = props.isTeacher;
+  if (isTeacher) {
+    return (
+      <Droppable droppableId={props.id} direction="horizontal">
+        {(provided) => (
+          <div
+            className={classes.teamCollection}
+            {...provided.droppableProps}
+            ref={provided.innerRef}
+          >
+            {props.rosterList.map((number, index) => {
+              console.log("number in team", number, index);
+              console.log("props.students", props.students);
+              const student = props.students[number];
+              console.log("consoleing");
+              console.log("student.id", student.id);
+              return (
+                <Student key={student.id} student={student} index={index} />
+              );
+            })}
+            {provided.placeholder}
+          </div>
+        )}
+      </Droppable>
+    );
+  } else {
+    return null;
+  }
+}
+
+function Arrows(props) {
+  const classes = useStyle();
+
+  const isTeacher = props.isTeacher;
+  if (isTeacher) {
+    return (
+      <div className={classes.arrowSections}>
+        <ArrowDropUpIcon className={classes.arrows}></ArrowDropUpIcon>
+        <ArrowDropDownIcon className={classes.arrows}></ArrowDropDownIcon>
+      </div>
+    );
+  } else {
+    return null;
+  }
+}
 
 export default function Team(props) {
   const classes = useStyle();
@@ -64,32 +112,14 @@ export default function Team(props) {
           </div>
           <div className={classes.scoreSection}>
             <div className={classes.count}>{props.score}</div>
-            <div className={classes.arrowSections}>
-              <ArrowDropUpIcon className={classes.arrows}></ArrowDropUpIcon>
-              <ArrowDropDownIcon className={classes.arrows}></ArrowDropDownIcon>
-            </div>
+            <Arrows isTeacher={props.isTeacher}></Arrows>
           </div>
-          <Droppable droppableId={props.id} direction="horizontal">
-            {(provided) => (
-              <div
-                className={classes.teamCollection}
-                {...provided.droppableProps}
-                ref={provided.innerRef}
-              >
-                {props.rosterList.map((number, index) => {
-                  console.log("number in team", number, index);
-                  console.log("props.students", props.students);
-                  const student = props.students[number];
-                  console.log("consoleing");
-                  console.log("student.id", student.id);
-                  return (
-                    <Student key={student.id} student={student} index={index} />
-                  );
-                })}
-                {provided.placeholder}
-              </div>
-            )}
-          </Droppable>
+          <StudentSection
+            id={props.id}
+            students={props.students}
+            isTeacher={props.isTeacher}
+            rosterList={props.rosterList}
+          ></StudentSection>
         </CardContent>
       </Card>
     </div>

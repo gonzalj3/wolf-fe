@@ -122,7 +122,7 @@ export default function GameBoard() {
     if (gameInfo) {
       return (
         <div className={classes.container}>
-          <TeamPartition data={data}></TeamPartition>
+          <TeamPartition data={data} isTeacher={true}></TeamPartition>
           <Roster rosterList={data}></Roster>
         </div>
       );
