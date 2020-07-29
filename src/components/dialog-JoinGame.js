@@ -56,16 +56,10 @@ export default function JoinGame({ buttonTitle }) {
         //If success to create a new account, redirect to login page
         if (!res.error) {
           //Save data on local storage
-          /*localStorage.setItem("isAuthenticated", true);
-          localStorage.setItem("user", JSON.stringify(res.user));
-          localStorage.setItem("token", JSON.stringify(res.token));*/
+          localStorage.setItem("gameCode", gameCode);
 
-          //Update the state of Auth providers
-          /*dispatchIsAuthenticated(setIsAuthenticated(true));
-          dispatchUser(fetchUserSuccess(res.user));*/
           console.log("login successfully");
 
-          //Redirect to dashboard
           window.location.replace("/joinGame");
         } else {
           throw Error(res.error);

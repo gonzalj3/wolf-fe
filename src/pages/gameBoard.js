@@ -11,6 +11,7 @@ import { makeStyles } from "@material-ui/core";
 import { DragDropContext } from "react-beautiful-dnd";
 import initialData from "../data/initial-data";
 import { authFetch } from "../helpers/authFetch.js";
+
 const useStyle = makeStyles((theme) => ({
   container: {
     display: "flex",
@@ -20,6 +21,7 @@ const useStyle = makeStyles((theme) => ({
     backgroundColor: "#D3D3D3",
   },
 }));
+
 export default function GameBoard() {
   const classes = useStyle();
   let [data, setData] = useState(null);
@@ -122,8 +124,8 @@ export default function GameBoard() {
     if (gameInfo) {
       return (
         <div className={classes.container}>
-          <TeamPartition data={data} isTeacher={true}></TeamPartition>
-          <Roster rosterList={data}></Roster>
+          <TeamPartition data={gameInfo} isTeacher={true}></TeamPartition>
+          <Roster rosterList={gameInfo}></Roster>
         </div>
       );
     } else {

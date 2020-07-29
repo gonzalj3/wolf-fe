@@ -21,6 +21,13 @@ const useStyle = makeStyles((theme) => ({
     marginRight: "25px",
     borderRadius: "8px",
   },
+  studentCard: {
+    height: "26vh",
+    width: "220px",
+    marginBottom: "10px",
+    marginRight: "25px",
+    borderRadius: "8px",
+  },
   cardContent: {
     padding: "0px 0px 0px 0px",
     height: "100%",
@@ -28,6 +35,15 @@ const useStyle = makeStyles((theme) => ({
   scoreSection: {
     display: "flex",
     flexDirection: "row",
+    borderBottom: "solid black ",
+    padding: "5px 0px 5px 0px",
+    backgroundColor: "white",
+    height: "95px",
+  },
+  scoreSectionStudent: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
     borderBottom: "solid black ",
     padding: "5px 0px 5px 0px",
     backgroundColor: "white",
@@ -41,6 +57,10 @@ const useStyle = makeStyles((theme) => ({
   },
   count: {
     padding: "10px 0% 10px 30%",
+    fontSize: "75px",
+  },
+  countStudent: {
+    //padding: "10px 40% 10px 50%",
     fontSize: "75px",
   },
   arrows: { fontSize: "60px", padding: "0px" },
@@ -85,43 +105,52 @@ function StudentSection(props) {
   }
 }
 
-function Arrows(props) {
+export default function Team(props) {
   const classes = useStyle();
-
-  const isTeacher = props.isTeacher;
-  if (isTeacher) {
+  if (props.isTeacher) {
     return (
-      <div className={classes.arrowSections}>
-        <ArrowDropUpIcon className={classes.arrows}></ArrowDropUpIcon>
-        <ArrowDropDownIcon className={classes.arrows}></ArrowDropDownIcon>
+      <div>
+        <Card className={classes.card} style={{ backgroundColor: props.color }}>
+          <CardContent className={classes.cardContent}>
+            <div className={classes.teamName}>
+              <Typography>{props.name}</Typography>
+            </div>
+            <div className={classes.scoreSection}>
+              <div className={classes.count}>{props.score}</div>
+              <div className={classes.arrowSections}>
+                <ArrowDropUpIcon className={classes.arrows}></ArrowDropUpIcon>
+                <ArrowDropDownIcon
+                  className={classes.arrows}
+                ></ArrowDropDownIcon>
+              </div>{" "}
+            </div>
+            <StudentSection
+              id={props.id}
+              students={props.students}
+              isTeacher={props.isTeacher}
+              rosterList={props.rosterList}
+            ></StudentSection>
+          </CardContent>
+        </Card>
       </div>
     );
   } else {
-    return null;
+    return (
+      <div>
+        <Card
+          className={classes.studentCard}
+          style={{ backgroundColor: props.color }}
+        >
+          <CardContent className={classes.cardContent}>
+            <div className={classes.teamName}>
+              <Typography>{props.name}</Typography>
+            </div>
+            <div className={classes.scoreSectionStudent}>
+              <div className={classes.countStudent}>{props.score}</div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    );
   }
-}
-
-export default function Team(props) {
-  const classes = useStyle();
-  return (
-    <div>
-      <Card className={classes.card} style={{ backgroundColor: props.color }}>
-        <CardContent className={classes.cardContent}>
-          <div className={classes.teamName}>
-            <Typography>{props.name}</Typography>
-          </div>
-          <div className={classes.scoreSection}>
-            <div className={classes.count}>{props.score}</div>
-            <Arrows isTeacher={props.isTeacher}></Arrows>
-          </div>
-          <StudentSection
-            id={props.id}
-            students={props.students}
-            isTeacher={props.isTeacher}
-            rosterList={props.rosterList}
-          ></StudentSection>
-        </CardContent>
-      </Card>
-    </div>
-  );
 }
