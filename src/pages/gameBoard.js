@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import socketIOClient from "socket.io-client";
 import NavBar from "../components/navbar";
 import GameCode from "../components/gamecode-button";
 import ScoreBoardButton from "../components/scoreboard-button";
@@ -21,7 +22,7 @@ const useStyle = makeStyles((theme) => ({
     backgroundColor: "#D3D3D3",
   },
 }));
-
+const socket = socketIOClient("ws://localhost:5000");
 export default function GameBoard() {
   const classes = useStyle();
   let [data, setData] = useState(null);
@@ -38,6 +39,10 @@ export default function GameBoard() {
       .catch((error) => {
         console.log("error", error);
       });
+
+    socket.on("teacherClient", (data) => {
+      console.log("probably got a new student", data);
+    });
   }, data);
 
   function onDragEnd(result) {
