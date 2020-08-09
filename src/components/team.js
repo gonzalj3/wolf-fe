@@ -86,11 +86,8 @@ function StudentSection(props) {
             ref={provided.innerRef}
           >
             {props.rosterList.map((number, index) => {
-              console.log("number in team", number, index);
-              console.log("props.students", props.students);
               const student = props.students[number];
-              console.log("consoleing");
-              console.log("student.id", student.id);
+
               return (
                 <Student key={student.id} student={student} index={index} />
               );

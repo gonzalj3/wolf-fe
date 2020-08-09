@@ -22,27 +22,34 @@ const useStyle = makeStyles((theme) => ({
     backgroundColor: "#D3D3D3",
   },
 }));
-const socket = socketIOClient("ws://localhost:5000");
+const socket = socketIOClient("ws://localhost:5000/game");
 export default function GameBoard() {
   const classes = useStyle();
   let [data, setData] = useState(null);
   const url = "http://localhost:4000/api/game/current";
 
   useEffect(() => {
+    //Ensure that we are authorized to fetch data.
+    socket.on("getGameEvent", (data) => {
+      console.log("on hi got some data : ", data);
+    });
+    socket.on("newStudent", (data) => {
+      console.log("new student: ", data);
+      setData(data);
+    });
     authFetch(url)
       .then((res) => res.json())
       .then((res) => {
         console.log("got response");
         console.log(res);
+        //let gameCode = "gameCode";
+        socket.emit("registerSocket", { gameCode: res.gameCode });
+        console.log("sent gamecode", res.gameCode);
         setData(res);
       })
       .catch((error) => {
         console.log("error", error);
       });
-
-    socket.on("teacherClient", (data) => {
-      console.log("probably got a new student", data);
-    });
   }, data);
 
   function onDragEnd(result) {
@@ -61,9 +68,12 @@ export default function GameBoard() {
 
       return;
     }
+    console.log("droppable", data.droppable);
+    console.log("destination.droppableId", destination.droppableId);
+    console.log("source.droppableId", source.droppableId);
     const start = data.droppable[source.droppableId];
     const finish = data.droppable[destination.droppableId];
-    console.log(start, finish);
+    console.log("finish droppable", finish);
     if (start === finish) {
       console.log(start, finish);
       const newStudents = Array.from(start.students);
@@ -97,7 +107,9 @@ export default function GameBoard() {
     };
 
     const finishStudents = Array.from(finish.students);
+    console.log("finishStudents array:", finishStudents);
     finishStudents.splice(destination.index, 0, draggableId);
+    console.log("new finishStudents array:", finishStudents);
     const newFinish = {
       ...finish,
       students: finishStudents,
@@ -111,7 +123,7 @@ export default function GameBoard() {
         [newFinish.id]: newFinish,
       },
     };
-    console.log(newData);
+    console.log("what new data is", newData);
     setData(newData);
     return;
   }

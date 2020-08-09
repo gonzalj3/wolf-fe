@@ -16,20 +16,26 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const socket = socketIOClient("ws://localhost:5000");
+const socket = socketIOClient("ws://localhost:5000/game");
 export default function StudentGame() {
   const classes = useStyles();
   let [data, setData] = useState(null);
-  const gameCode = localStorage.getItem("gameCode");
 
   useEffect(() => {
-    console.log("about to fetch from studentGame");
+    /*socket.on("getGameEvent", (data) => {
+      console.log("on hi got some data : ", data);
+    });
+    */
+    //let gameRoom = localStorage.gameCode;
+    const gameCode = localStorage.getItem("gameCode");
+    const name = localStorage.getItem("name");
 
-    socket.emit("studentServer", { gameCode: gameCode });
-
-    socket.on("studentClient", (data) => {
-      console.log("we got a connection", data);
-      setData(data);
+    console.log("about to join game room: ", gameCode, name);
+    let studentInfo = { room: gameCode, name: name };
+    socket.emit("joinGameRoom", studentInfo);
+    socket.on("joinGameRoom", (gameData) => {
+      console.log(`gameData is ${gameData}`);
+      setData(gameData);
     });
   }, data);
 

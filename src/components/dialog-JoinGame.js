@@ -22,7 +22,7 @@ const useStyles = makeStyles({
 export default function JoinGame({ buttonTitle }) {
   const classes = useStyles();
   const [gameCode, setGameCode] = React.useState("");
-  const [firstName, setFirstName] = React.useState("");
+  const [nickName, setFirstName] = React.useState("");
   const [lastName, setLastName] = React.useState("");
 
   const [openLogIn, setOpen] = React.useState(false);
@@ -38,7 +38,7 @@ export default function JoinGame({ buttonTitle }) {
 
   const onSubmit = () => {
     console.log("info getting conveyed");
-    console.log(gameCode, firstName, lastName);
+    console.log(gameCode, nickName, lastName);
     //Make a request to backend
     const url = "http://localhost:4000/api/joinGame/student";
     const options = {
@@ -46,8 +46,7 @@ export default function JoinGame({ buttonTitle }) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         gameCode,
-        firstName,
-        lastName,
+        nickName,
       }),
     };
     fetch(url, options)
@@ -55,8 +54,10 @@ export default function JoinGame({ buttonTitle }) {
       .then((res) => {
         //If success to create a new account, redirect to login page
         if (!res.error) {
+          //let name = nickName + " " + lastName;
           //Save data on local storage
           localStorage.setItem("gameCode", gameCode);
+          localStorage.setItem("name", nickName);
 
           console.log("login successfully");
 
@@ -89,23 +90,14 @@ export default function JoinGame({ buttonTitle }) {
           <TextField
             autoFocus
             margin="dense"
-            id="firstName"
-            name="firstName"
-            label="First name"
+            id="nickName"
+            name="nickName"
+            label="Game Name"
             //type="password"
             onInput={(e) => setFirstName(e.target.value)}
             fullWidth
           />
-          <TextField
-            autoFocus
-            margin="dense"
-            id="lastName"
-            name="lastName"
-            label="Last Name"
-            //type="password"
-            onInput={(e) => setLastName(e.target.value)}
-            fullWidth
-          />
+
           <TextField
             autoFocus
             margin="dense"
