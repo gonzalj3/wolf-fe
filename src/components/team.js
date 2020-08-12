@@ -76,6 +76,8 @@ function StudentSection(props) {
   const classes = useStyle();
 
   const isTeacher = props.isTeacher;
+  console.log(`droppableID: ${props.id}`);
+
   if (isTeacher) {
     return (
       <Droppable droppableId={props.id} direction="horizontal">
@@ -87,7 +89,8 @@ function StudentSection(props) {
           >
             {props.rosterList.map((number, index) => {
               const student = props.students[number];
-
+              console.log(`number: ${number}`);
+              console.log(`all students: ${props.students}`);
               return (
                 <Student key={student.id} student={student} index={index} />
               );

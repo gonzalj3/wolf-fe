@@ -45,6 +45,7 @@ export default function GameBoard() {
         //let gameCode = "gameCode";
         socket.emit("registerSocket", { gameCode: res.gameCode });
         console.log("sent gamecode", res.gameCode);
+        localStorage.setItem("gameCode", res.gameCode);
         setData(res);
       })
       .catch((error) => {
@@ -123,7 +124,14 @@ export default function GameBoard() {
         [newFinish.id]: newFinish,
       },
     };
+    const studentUpdate = {
+      gameCode: localStorage.getItem("gameCode"),
+      team: destination.droppableId,
+      student: draggableId,
+    };
     console.log("what new data is", newData);
+    console.log("studentUpdate", studentUpdate);
+    socket.emit("moveStudent", studentUpdate);
     setData(newData);
     return;
   }

@@ -24,7 +24,7 @@ export default function TeamPartition(props) {
         console.log(item, team);
         return (
           <Team
-            id={team.name}
+            id={team.id}
             name={team.name}
             score={team.score}
             color={team.color}
