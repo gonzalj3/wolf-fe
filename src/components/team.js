@@ -77,7 +77,8 @@ function StudentSection(props) {
 
   const isTeacher = props.isTeacher;
   console.log(`droppableID: ${props.id}`);
-
+  console.log("rosterlist(team.students) in team: ", props.rosterList);
+  console.log("students (props.data.students) in team ", props.students);
   if (isTeacher) {
     return (
       <Droppable droppableId={props.id} direction="horizontal">
@@ -88,9 +89,12 @@ function StudentSection(props) {
             ref={provided.innerRef}
           >
             {props.rosterList.map((number, index) => {
-              const student = props.students[number];
+              //changed below from number to number.id
+
+              const student = props.students[number.id];
               console.log(`number: ${number}`);
               console.log(`all students: ${props.students}`);
+              console.log("the student object: ", student);
               return (
                 <Student key={student.id} student={student} index={index} />
               );

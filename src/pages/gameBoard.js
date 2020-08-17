@@ -109,7 +109,12 @@ export default function GameBoard() {
 
     const finishStudents = Array.from(finish.students);
     console.log("finishStudents array:", finishStudents);
-    finishStudents.splice(destination.index, 0, draggableId);
+    if (finish.id == "roster") {
+      finishStudents.splice(destination.index, 0, [draggableId]);
+      //update code on the backend to remove student from team
+    } else {
+      finishStudents.splice(destination.index, 0, { id: draggableId });
+    }
     console.log("new finishStudents array:", finishStudents);
     const newFinish = {
       ...finish,
@@ -146,6 +151,7 @@ export default function GameBoard() {
 
   function TeamsAndRoster(props) {
     const gameInfo = props.data;
+    console.log("we have a rosterlist in this : ", gameInfo);
     if (gameInfo) {
       return (
         <div className={classes.container}>
