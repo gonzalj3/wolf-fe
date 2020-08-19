@@ -129,11 +129,21 @@ export default function GameBoard() {
         [newFinish.id]: newFinish,
       },
     };
-    const studentUpdate = {
-      gameCode: localStorage.getItem("gameCode"),
-      team: destination.droppableId,
-      student: draggableId,
-    };
+    let studentUpdate;
+    if (finish.id == "roster") {
+      studentUpdate = {
+        gameCode: localStorage.getItem("gameCode"),
+        team: "roster",
+        student: draggableId,
+      };
+    } else {
+      studentUpdate = {
+        gameCode: localStorage.getItem("gameCode"),
+        team: destination.droppableId,
+        student: draggableId,
+      };
+    }
+
     console.log("what new data is", newData);
     console.log("studentUpdate", studentUpdate);
     socket.emit("moveStudent", studentUpdate);
