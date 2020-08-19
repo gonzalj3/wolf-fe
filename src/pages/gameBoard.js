@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import socketIOClient from "socket.io-client";
 import NavBar from "../components/navbar";
 import GameCode from "../components/gamecode-button";
 import ScoreBoardButton from "../components/scoreboard-button";
@@ -11,6 +12,7 @@ import { makeStyles } from "@material-ui/core";
 import { DragDropContext } from "react-beautiful-dnd";
 import initialData from "../data/initial-data";
 import { authFetch } from "../helpers/authFetch.js";
+
 const useStyle = makeStyles((theme) => ({
   container: {
     display: "flex",
@@ -20,17 +22,30 @@ const useStyle = makeStyles((theme) => ({
     backgroundColor: "#D3D3D3",
   },
 }));
+const socket = socketIOClient("ws://localhost:5000/game");
 export default function GameBoard() {
   const classes = useStyle();
   let [data, setData] = useState(null);
   const url = "http://localhost:4000/api/game/current";
 
   useEffect(() => {
+    //Ensure that we are authorized to fetch data.
+    socket.on("getGameEvent", (data) => {
+      console.log("on hi got some data : ", data);
+    });
+    socket.on("newStudent", (data) => {
+      console.log("new student: ", data);
+      setData(data);
+    });
     authFetch(url)
       .then((res) => res.json())
       .then((res) => {
         console.log("got response");
         console.log(res);
+        //let gameCode = "gameCode";
+        socket.emit("registerSocket", { gameCode: res.gameCode });
+        console.log("sent gamecode", res.gameCode);
+        localStorage.setItem("gameCode", res.gameCode);
         setData(res);
       })
       .catch((error) => {
@@ -54,9 +69,12 @@ export default function GameBoard() {
 
       return;
     }
+    console.log("droppable", data.droppable);
+    console.log("destination.droppableId", destination.droppableId);
+    console.log("source.droppableId", source.droppableId);
     const start = data.droppable[source.droppableId];
     const finish = data.droppable[destination.droppableId];
-    console.log(start, finish);
+    console.log("finish droppable", finish);
     if (start === finish) {
       console.log(start, finish);
       const newStudents = Array.from(start.students);
@@ -90,7 +108,14 @@ export default function GameBoard() {
     };
 
     const finishStudents = Array.from(finish.students);
-    finishStudents.splice(destination.index, 0, draggableId);
+    console.log("finishStudents array:", finishStudents);
+    if (finish.id == "roster") {
+      finishStudents.splice(destination.index, 0, [draggableId]);
+      //update code on the backend to remove student from team
+    } else {
+      finishStudents.splice(destination.index, 0, { id: draggableId });
+    }
+    console.log("new finishStudents array:", finishStudents);
     const newFinish = {
       ...finish,
       students: finishStudents,
@@ -104,17 +129,44 @@ export default function GameBoard() {
         [newFinish.id]: newFinish,
       },
     };
-    console.log(newData);
+    let studentUpdate;
+    if (finish.id == "roster") {
+      studentUpdate = {
+        gameCode: localStorage.getItem("gameCode"),
+        team: "roster",
+        student: draggableId,
+      };
+    } else {
+      studentUpdate = {
+        gameCode: localStorage.getItem("gameCode"),
+        team: destination.droppableId,
+        student: draggableId,
+      };
+    }
+
+    console.log("what new data is", newData);
+    console.log("studentUpdate", studentUpdate);
+    socket.emit("moveStudent", studentUpdate);
     setData(newData);
     return;
   }
+  function GameCodeVerifier(props) {
+    const data = props.data;
+    if (data) {
+      return <GameCode code={data.gameCode} />;
+    } else {
+      return null;
+    }
+  }
+
   function TeamsAndRoster(props) {
     const gameInfo = props.data;
+    console.log("we have a rosterlist in this : ", gameInfo);
     if (gameInfo) {
       return (
         <div className={classes.container}>
-          <TeamPartition data={data}></TeamPartition>
-          <Roster rosterList={data}></Roster>
+          <TeamPartition data={gameInfo} isTeacher={true}></TeamPartition>
+          <Roster rosterList={gameInfo}></Roster>
         </div>
       );
     } else {
@@ -124,7 +176,7 @@ export default function GameBoard() {
   return (
     <div>
       <NavBar>
-        <GameCode code={123} />
+        <GameCodeVerifier data={data} />
         <ScoreBoardButton />
         <ReportButton />
         <ExpandMoreIcon />

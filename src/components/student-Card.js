@@ -9,6 +9,7 @@ const useStyle = makeStyles((theme) => ({
   card: {
     height: "9vh",
     width: "9vh",
+    minWidth: "9vh",
     borderRadius: "8px",
     borderColor: "#759CFC",
     borderStyle: "solid",

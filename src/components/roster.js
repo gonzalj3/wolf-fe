@@ -15,7 +15,7 @@ const useStyle = makeStyles((theme) => ({
     width: "95%",
     height: "95px",
     display: "flex",
-    flexWrap: "wrap",
+    //flexWrap: "wrap",
     flexDirection: "row",
     padding: "0px",
     alignItems: "center",
@@ -28,6 +28,7 @@ const useStyle = makeStyles((theme) => ({
     width: "100%",
     height: "100%",
     padding: "8px",
+    overflow: "scroll",
   },
   unassigned: {
     borderRight: "solid 1px black",
@@ -39,6 +40,7 @@ const useStyle = makeStyles((theme) => ({
     flexDirection: "row",
     //width: "100%",
     //height: "100%",
+    maxWidth: "90%",
     height: "85px",
     flexGrow: "1",
     border: "solid 1px black",
@@ -64,7 +66,7 @@ const useStyle = makeStyles((theme) => ({
 }));
 export default function Roster({ rosterList }) {
   const classes = useStyle();
-
+  console.log("In Roster Component: ", rosterList);
   return (
     <div className={classes.container}>
       <Card className={classes.students}>
@@ -83,13 +85,8 @@ export default function Roster({ rosterList }) {
               ref={provided.innerRef}
             >
               {rosterList.droppable.roster.students.map((number, index) => {
-                console.log("number", number, index);
                 const student = rosterList.students[number];
-                console.log(
-                  "rosterlist students in roster"
-                  //rosterList.students.keys()
-                );
-                console.log("student in roster id", student);
+                console.log("student looks like:", student);
                 return (
                   <Student key={student.id} student={student} index={index} />
                 );

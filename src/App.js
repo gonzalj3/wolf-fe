@@ -5,6 +5,7 @@ import { theme } from "./themes/theme";
 
 import Welcome from "./pages/welcome";
 import Gameboard from "./pages/gameBoard";
+import StudentGame from "./pages/studentGame";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <BrowserRouter>
         <Route exact path="/" component={Welcome} />
         <Route exact path="/gameboard" component={Gameboard} />
+        <Route exact path="/joinGame" component={StudentGame} />
       </BrowserRouter>
     </MuiThemeProvider>
   );

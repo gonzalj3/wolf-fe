@@ -21,7 +21,8 @@ export default function TeamPartition(props) {
     <div className={classes.container}>
       {props.data.TeamOrder.map((item) => {
         const team = props.data.droppable[item];
-        console.log(item, team);
+        console.log("rosterList : ", team.students);
+        console.log("students : ", props.data.students);
         return (
           <Team
             id={team.id}
@@ -30,6 +31,7 @@ export default function TeamPartition(props) {
             color={team.color}
             rosterList={team.students}
             students={props.data.students}
+            isTeacher={props.isTeacher}
           ></Team>
         );
       })}
