@@ -32,6 +32,15 @@ const useStyle = makeStyles((theme) => ({
 export default function Query(props) {
   const classes = useStyle();
 
+  const trueFalse = () => {
+    //console.log("we have props socket ", props.socket);
+    if (props.socket) {
+      props.socket.emit("newQuestion", {
+        gameCode: props.data.gameCode,
+        type: "TF",
+      });
+    }
+  };
   return (
     <div className={classes.container}>
       <div className={classes.queryContainer}>
@@ -39,7 +48,9 @@ export default function Query(props) {
       </div>
 
       <div className={classes.students}>
-        <Button variant="contained">True/False</Button>
+        <Button variant="contained" onClick={trueFalse}>
+          True/False
+        </Button>
       </div>
     </div>
   );

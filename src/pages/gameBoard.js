@@ -193,7 +193,7 @@ export default function GameBoard() {
       <DragDropContext onDragEnd={onDragEnd}>
         <TeamsAndRoster data={data} />
       </DragDropContext>
-      <Query></Query>
+      <Query socket={socket} data={data}></Query>
     </div>
   );
 }
