@@ -29,7 +29,10 @@ export default function GameBoard() {
   const url = "http://localhost:4000/api/game/current";
 
   useEffect(() => {
-    //Ensure that we are authorized to fetch data.
+    socket.on("newTeamUpdate", (data) => {
+      console.log("We are getting new data about a new Team.");
+      setData(data);
+    });
     socket.on("getGameEvent", (data) => {
       console.log("on hi got some data : ", data);
     });
@@ -37,6 +40,8 @@ export default function GameBoard() {
       console.log("new student: ", data);
       setData(data);
     });
+
+    //Ensure that we are authorized to fetch data.
     authFetch(url)
       .then((res) => res.json())
       .then((res) => {
@@ -165,7 +170,11 @@ export default function GameBoard() {
     if (gameInfo) {
       return (
         <div className={classes.container}>
-          <TeamPartition data={gameInfo} isTeacher={true}></TeamPartition>
+          <TeamPartition
+            data={gameInfo}
+            isTeacher={true}
+            socket={socket}
+          ></TeamPartition>
           <Roster rosterList={gameInfo}></Roster>
         </div>
       );
@@ -184,7 +193,7 @@ export default function GameBoard() {
       <DragDropContext onDragEnd={onDragEnd}>
         <TeamsAndRoster data={data} />
       </DragDropContext>
-      <Query></Query>
+      <Query socket={socket} data={data}></Query>
     </div>
   );
 }

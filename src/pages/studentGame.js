@@ -37,6 +37,10 @@ export default function StudentGame() {
       console.log(`gameData is ${gameData}`);
       setData(gameData);
     });
+    socket.on("newTeamUpdate", (data) => {
+      console.log("We are getting new data about a new Team.");
+      setData(data);
+    });
   }, data);
 
   function TeamsAndRoster(props) {
