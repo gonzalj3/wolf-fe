@@ -41,6 +41,9 @@ export default function StudentGame() {
       console.log("We are getting new data about a new Team.");
       setData(data);
     });
+    socket.on("newQuestionUpdate", (data) => {
+      console.log(data);
+    });
   }, data);
 
   function TeamsAndRoster(props) {
@@ -62,7 +65,7 @@ export default function StudentGame() {
       <DragDropContext>
         <TeamsAndRoster data={data} />
       </DragDropContext>
-      <Question></Question>
+      <Question data={data}></Question>
     </div>
   );
 }
