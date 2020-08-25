@@ -42,7 +42,8 @@ export default function StudentGame() {
       setData(data);
     });
     socket.on("newQuestionUpdate", (data) => {
-      console.log(data);
+      //console.log(data);
+      setData(data);
     });
   }, data);
 

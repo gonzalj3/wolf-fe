@@ -41,6 +41,22 @@ export default function Query(props) {
       });
     }
   };
+
+  const QuestionOptions = (props) => {
+    if (props.question.type != null) {
+      console.log("we have a question");
+    } else {
+      console.log("we have no question");
+    }
+  };
+
+  const SetAnswer = (props) => {
+    if (props.question.type != null) {
+      console.log("we have a question");
+    } else {
+      console.log("we have no question");
+    }
+  };
   return (
     <div className={classes.container}>
       <div className={classes.queryContainer}>
@@ -52,6 +68,8 @@ export default function Query(props) {
           True/False
         </Button>
       </div>
+      <QuestionOptions></QuestionOptions>
+      <SetAnswer></SetAnswer>
     </div>
   );
 }

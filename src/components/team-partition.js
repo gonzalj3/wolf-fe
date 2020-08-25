@@ -22,31 +22,9 @@ export default function TeamPartition(props) {
   const addTeam = () => {
     console.log("we are adding a team.");
     if (props.socket) {
-      //console.log("the gamecode is :", props.data.gameCode);
-      //console.log("we also have a socket: ", props.socket);
-      let lastTeamInd = props.data.TeamOrder.length;
-      let team;
-      console.log("length of team: ", lastTeamInd);
-      switch (lastTeamInd) {
-        case 1:
-          team = "yellow";
-          break;
-        case 2:
-          team = "red";
-          break;
-        case 3:
-          team = "green";
-          break;
-        case 4:
-          team = "purple";
-          break;
-        case 5:
-          team = "orange";
-      }
       props.socket.emit("newTeam", {
         room: props.data.gameCode,
-        team: team,
-      }); //on(props.data.gameCode).;
+      });
     } else {
       console.log("we do not have any socket: ", props.socket);
     }
