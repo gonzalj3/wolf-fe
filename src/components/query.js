@@ -1,6 +1,5 @@
-import React, { useContext } from "react";
+import React from "react";
 import { makeStyles, Button } from "@material-ui/core";
-import { SocketConsumer } from "../context/socketContext.js";
 
 import Question from "../components/question.js";
 const useStyle = makeStyles((theme) => ({
@@ -36,7 +35,6 @@ const useStyle = makeStyles((theme) => ({
 }));
 export default function Query(props) {
   const classes = useStyle();
-  const socket = useContext(SocketConsumer);
   const trueFalse = () => {
     //console.log("we have props socket ", props.socket);
     if (props.socket) {

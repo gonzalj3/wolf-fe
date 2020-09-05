@@ -195,7 +195,7 @@ export default function GameBoard() {
         <ReportButton />
         <ExpandMoreIcon />
       </NavBar>
-      <SocketProvider>
+      <SocketProvider value={socket}>
         <DragDropContext onDragEnd={onDragEnd}>
           <TeamsAndRoster data={data} />
         </DragDropContext>
