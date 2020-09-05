@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import socketIOClient from "socket.io-client";
+import socketIOClient, { Socket } from "socket.io-client";
 import NavBar from "../components/navbar";
 import GameCode from "../components/gamecode-button";
 import ScoreBoardButton from "../components/scoreboard-button";
@@ -12,6 +12,7 @@ import { makeStyles } from "@material-ui/core";
 import { DragDropContext } from "react-beautiful-dnd";
 import initialData from "../data/initial-data";
 import { authFetch } from "../helpers/authFetch.js";
+import { SocketProvider } from "../context/socketContext.js";
 
 const useStyle = makeStyles((theme) => ({
   container: {
@@ -25,6 +26,7 @@ const useStyle = makeStyles((theme) => ({
 const socket = socketIOClient("ws://localhost:5000/game");
 export default function GameBoard() {
   const classes = useStyle();
+
   let [data, setData] = useState(null);
   const url = "http://localhost:4000/api/game/current";
 
@@ -40,7 +42,10 @@ export default function GameBoard() {
       console.log("new student: ", data);
       setData(data);
     });
-
+    socket.on("newQuestionUpdate", (data) => {
+      //console.log(data);
+      setData(data);
+    });
     //Ensure that we are authorized to fetch data.
     authFetch(url)
       .then((res) => res.json())
@@ -190,10 +195,12 @@ export default function GameBoard() {
         <ReportButton />
         <ExpandMoreIcon />
       </NavBar>
-      <DragDropContext onDragEnd={onDragEnd}>
-        <TeamsAndRoster data={data} />
-      </DragDropContext>
-      <Query socket={socket} data={data}></Query>
+      <SocketProvider>
+        <DragDropContext onDragEnd={onDragEnd}>
+          <TeamsAndRoster data={data} />
+        </DragDropContext>
+        <Query socket={socket} data={data}></Query>
+      </SocketProvider>
     </div>
   );
 }
