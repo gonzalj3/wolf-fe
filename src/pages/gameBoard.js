@@ -146,7 +146,8 @@ export default function GameBoard() {
     if (finish.id == "roster") {
       studentUpdate = {
         gameCode: localStorage.getItem("gameCode"),
-        team: "roster",
+        to: "roster",
+        from: source.droppableId,
         student: draggableId,
       };
     } else {
