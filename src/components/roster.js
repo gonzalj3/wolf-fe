@@ -96,10 +96,6 @@ export default function Roster({ rosterList }) {
           )}
         </Droppable>
       </Card>
-
-      <Button variant="contained" style={{ marginLeft: "5px" }}>
-        Add Team
-      </Button>
     </div>
   );
 }

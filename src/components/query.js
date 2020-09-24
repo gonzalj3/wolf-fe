@@ -1,11 +1,15 @@
 import React from "react";
 import { makeStyles, Button } from "@material-ui/core";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import Typography from "@material-ui/core/Typography";
 
+import Question from "../components/question.js";
 const useStyle = makeStyles((theme) => ({
   queryContainer: {
+    display: "flex",
+    justifyContent: "center",
+    flexDirection: "row",
+    marginBottom: "10px",
+  },
+  setQuestion: {
     display: "flex",
     justifyContent: "center",
     flexDirection: "row",
@@ -31,7 +35,6 @@ const useStyle = makeStyles((theme) => ({
 }));
 export default function Query(props) {
   const classes = useStyle();
-
   const trueFalse = () => {
     //console.log("we have props socket ", props.socket);
     if (props.socket) {
@@ -41,17 +44,43 @@ export default function Query(props) {
       });
     }
   };
+
+  const SetAnswerOrQuery = (props) => {
+    if (
+      props.data &&
+      props.data.question &&
+      props.data.question.type != null &&
+      !props.data.question.answer
+    ) {
+      console.log("we have a question : ", props.data.question);
+      return (
+        <div>
+          <div className={classes.setQuestion}> Set Question:</div>
+          <Question data={props.data}></Question>
+        </div>
+      );
+    } else {
+      console.log("we have no question", props);
+      return (
+        <div>
+          <div className={classes.queryContainer}>
+            <div>new question:</div>
+          </div>
+
+          <div className={classes.students}>
+            <Button variant="contained" onClick={trueFalse}>
+              True/False
+            </Button>
+          </div>
+        </div>
+      );
+    }
+    return null;
+  };
+
   return (
     <div className={classes.container}>
-      <div className={classes.queryContainer}>
-        <div>new question:</div>
-      </div>
-
-      <div className={classes.students}>
-        <Button variant="contained" onClick={trueFalse}>
-          True/False
-        </Button>
-      </div>
+      <SetAnswerOrQuery data={props.data}></SetAnswerOrQuery>
     </div>
   );
 }
