@@ -12,7 +12,7 @@ import { makeStyles } from "@material-ui/core";
 import { DragDropContext } from "react-beautiful-dnd";
 import initialData from "../data/initial-data";
 import { authFetch } from "../helpers/authFetch.js";
-import { SocketProvider } from "../context/socketContext.js";
+import { GameInfoProvider } from "../context/GameInfoContext.js";
 
 const useStyle = makeStyles((theme) => ({
   container: {
@@ -46,6 +46,9 @@ export default function GameBoard() {
       //console.log(data);
       setData(data);
     });
+    /*socket.on("newStudentAnswer", (data) => {
+      console.log("we got some new student answer  ", data);
+    });*/
     //Ensure that we are authorized to fetch data.
     authFetch(url)
       .then((res) => res.json())
@@ -149,7 +152,8 @@ export default function GameBoard() {
     } else {
       studentUpdate = {
         gameCode: localStorage.getItem("gameCode"),
-        team: destination.droppableId,
+        to: destination.droppableId,
+        from: source.droppableId,
         student: draggableId,
       };
     }
@@ -195,12 +199,14 @@ export default function GameBoard() {
         <ReportButton />
         <ExpandMoreIcon />
       </NavBar>
-      <SocketProvider value={socket}>
+      <GameInfoProvider
+        value={{ socket: socket, isTeacher: true, gameState: data }}
+      >
         <DragDropContext onDragEnd={onDragEnd}>
           <TeamsAndRoster data={data} />
         </DragDropContext>
         <Query socket={socket} data={data}></Query>
-      </SocketProvider>
+      </GameInfoProvider>
     </div>
   );
 }

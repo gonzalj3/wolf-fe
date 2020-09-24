@@ -46,8 +46,13 @@ export default function Query(props) {
   };
 
   const SetAnswerOrQuery = (props) => {
-    if (props.data && props.data.question && props.data.question.type != null) {
-      console.log("we have a question");
+    if (
+      props.data &&
+      props.data.question &&
+      props.data.question.type != null &&
+      !props.data.question.answer
+    ) {
+      console.log("we have a question : ", props.data.question);
       return (
         <div>
           <div className={classes.setQuestion}> Set Question:</div>
