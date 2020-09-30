@@ -46,11 +46,12 @@ export default function Query(props) {
   };
 
   const SetAnswerOrQuery = (props) => {
+    //console.log("the data.question looks like : ", props.data.question);
     if (
       props.data &&
       props.data.question &&
       props.data.question.type != null &&
-      !props.data.question.answer
+      !props.data.question.scored
     ) {
       console.log("we have a question : ", props.data.question);
       return (
