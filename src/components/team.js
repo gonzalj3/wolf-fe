@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { makeStyles } from "@material-ui/core";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
@@ -6,8 +6,12 @@ import Typography from "@material-ui/core/Typography";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 import { Droppable } from "react-beautiful-dnd";
-import { red } from "@material-ui/core/colors";
 import Student from "../components/student-Card";
+import { IconButton } from "@material-ui/core";
+import {
+  GameInfoContext,
+  GameInfoProvider,
+} from "../context/GameInfoContext.js";
 
 const useStyle = makeStyles((theme) => ({
   teamName: {
@@ -52,8 +56,17 @@ const useStyle = makeStyles((theme) => ({
   arrowSections: {
     display: "flex",
     flexDirection: "column",
-    padding: "0px 0px 0px 5px",
-    fontSize: "large",
+    /*padding: "0px 0px 0px 5px",
+    fontSize: "large",*/
+  },
+  arrowButton: {
+    display: "flex",
+    flexDirection: "column",
+    padding: "0px 0px 0px 0px",
+    width: "50px",
+    height: "50px",
+    background: "white",
+    //fontSize: "large",*/
   },
   count: {
     padding: "10px 0% 10px 30%",
@@ -63,7 +76,7 @@ const useStyle = makeStyles((theme) => ({
     //padding: "10px 40% 10px 50%",
     fontSize: "75px",
   },
-  arrows: { fontSize: "60px", padding: "0px" },
+  arrows: { color: "black", fontSize: "45px", padding: "0px" },
   teamCollection: {
     minHeight: "150px",
     display: "flex",
@@ -72,6 +85,7 @@ const useStyle = makeStyles((theme) => ({
     alignItems: "flex-start",
   },
 }));
+
 function StudentSection(props) {
   const classes = useStyle();
 
@@ -111,6 +125,34 @@ function StudentSection(props) {
 
 export default function Team(props) {
   const classes = useStyle();
+  const gameInfo = useContext(GameInfoContext);
+  const [score, setScore] = useState(props.score);
+
+  const socket = gameInfo.socket;
+  function addPoint() {
+    let data = {
+      team: props.id,
+      gameCode: props.gameCode,
+      point: 1,
+    };
+    setScore(score + 1);
+    console.log("about to change points, data : ", data);
+
+    socket.emit("pointChangeTeam", data);
+  }
+
+  function subtractPoint() {
+    let data = {
+      team: props.id,
+      gameCode: props.gameCode,
+      point: -1,
+    };
+    setScore(score - 1);
+    console.log("about to change points, data : ", data);
+
+    socket.emit("pointChangeTeam", data);
+  }
+
   if (props.isTeacher) {
     return (
       <div>
@@ -120,13 +162,20 @@ export default function Team(props) {
               <Typography>{props.name}</Typography>
             </div>
             <div className={classes.scoreSection}>
-              <div className={classes.count}>{props.score}</div>
+              <div className={classes.count}>{score}</div>
               <div className={classes.arrowSections}>
-                <ArrowDropUpIcon className={classes.arrows}></ArrowDropUpIcon>
-                <ArrowDropDownIcon
-                  className={classes.arrows}
-                ></ArrowDropDownIcon>
-              </div>{" "}
+                <IconButton onClick={addPoint} className={classes.arrowButton}>
+                  <ArrowDropUpIcon className={classes.arrows}></ArrowDropUpIcon>
+                </IconButton>
+                <IconButton
+                  onClick={subtractPoint}
+                  className={classes.arrowButton}
+                >
+                  <ArrowDropDownIcon
+                    className={classes.arrows}
+                  ></ArrowDropDownIcon>
+                </IconButton>
+              </div>
             </div>
             <StudentSection
               id={props.id}
