@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import socketIOClient from "socket.io-client";
 import TeamPartition from "../components/team-partition.js";
 import NavBar from "../components/navbar.js";
+import Question from "../components/question.js";
 import { makeStyles } from "@material-ui/core";
 import { DragDropContext } from "react-beautiful-dnd";
-import Question from "../components/question.js";
 import { GameInfoProvider } from "../context/GameInfoContext.js";
 
 const useStyles = makeStyles((theme) => ({
