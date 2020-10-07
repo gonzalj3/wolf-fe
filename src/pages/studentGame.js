@@ -4,7 +4,7 @@ import TeamPartition from "../components/team-partition.js";
 import NavBar from "../components/navbar.js";
 import { makeStyles } from "@material-ui/core";
 import { DragDropContext } from "react-beautiful-dnd";
-import Question from "../components/question";
+import Question from "../components/question.js";
 import { GameInfoProvider } from "../context/GameInfoContext.js";
 
 const useStyles = makeStyles((theme) => ({
