@@ -56,7 +56,7 @@ export default function LogIn({ buttonTitle }) {
     //console.log(thing);
     console.log(email, password, firstName, lastName, email, schoolName);
     //Make a request to backend
-    const url = "http://localhost:4000/api/register";
+    const url = "https://wolfgamebetabe.herokuapp.com/api/register";
     const options = {
       method: "POST",
       headers: { "Content-Type": "application/json" },

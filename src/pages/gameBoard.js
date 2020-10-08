@@ -28,7 +28,7 @@ export default function GameBoard() {
   const classes = useStyle();
 
   let [data, setData] = useState(null);
-  const url = "http://localhost:4000/api/game/current";
+  const url = "https://wolfgamebetabe.herokuapp.com/api/game/current";
 
   useEffect(() => {
     socket.on("newTeamUpdate", (data) => {
