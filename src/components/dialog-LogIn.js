@@ -40,7 +40,7 @@ export default function LogIn({ buttonTitle }) {
     //console.log(thing);
     console.log(email, password);
     //Make a request to backend
-    const url = "https://wolfgamebetabe.herokuapp.com/api/login";
+    const url = "http://wolfgamebetabe.herokuapp.com/api/login";
     const options = {
       method: "POST",
       headers: { "Content-Type": "application/json" },

@@ -23,12 +23,12 @@ const useStyle = makeStyles((theme) => ({
     backgroundColor: "#D3D3D3",
   },
 }));
-const socket = socketIOClient("ws://localhost:5000/game");
+const socket = socketIOClient("ws://wolfgamebetabe.herokuapp.com/game");
 export default function GameBoard() {
   const classes = useStyle();
 
   let [data, setData] = useState(null);
-  const url = "https://wolfgamebetabe.herokuapp.com/api/game/current";
+  const url = "http://wolfgamebetabe.herokuapp.com/api/game/current";
 
   useEffect(() => {
     socket.on("newTeamUpdate", (data) => {
