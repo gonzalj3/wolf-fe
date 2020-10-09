@@ -23,7 +23,7 @@ const useStyle = makeStyles((theme) => ({
     backgroundColor: "#D3D3D3",
   },
 }));
-const socket = socketIOClient("ws://wolfgamebetabe.herokuapp.com/game");
+const socket = socketIOClient("wss://wolfgamebetabe.herokuapp.com/game");
 export default function GameBoard() {
   const classes = useStyle();
 

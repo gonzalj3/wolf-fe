@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const socket = socketIOClient("ws://wolfgamebetabe.herokuapp.com/game");
+const socket = socketIOClient("wss://wolfgamebetabe.herokuapp.com/game");
 export default function StudentGame() {
   const classes = useStyles();
   let [data, setData] = useState(null);
