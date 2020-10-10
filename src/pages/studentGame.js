@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import socketIOClient from "socket.io-client";
+import io from "socket.io-client";
+//import io from "socket.io"
 import TeamPartition from "../components/team-partition.js";
 import NavBar from "../components/navbar.js";
 import Question from "../components/question.js";
@@ -17,7 +18,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const socket = socketIOClient("wss://wolfgamebetabe.herokuapp.com/game", {transports: ['websocket']});
+//const socket = io("wss://wolfgamebetabe.herokuapp.com/game", {transports: ['websocket']});
+const socket = io("wss://localhost:5000/game", {transports: ['websocket']});
+
 export default function StudentGame() {
   const classes = useStyles();
   let [data, setData] = useState(null);
