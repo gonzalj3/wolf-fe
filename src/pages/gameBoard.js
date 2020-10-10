@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import io, { Socket } from "socket.io-client";
+import io from "socket.io-client";
 //import io from "socket.io"
 
 import NavBar from "../components/navbar";
@@ -25,8 +25,8 @@ const useStyle = makeStyles((theme) => ({
     backgroundColor: "#D3D3D3",
   },
 }));
-//const socket = socketIOClient("wss://wolfgamebetabe.herokuapp.com/game", {transports: ['websocket']});
-const socket = io("wss://localhost:5000/game", {transports: ['websocket']});
+const socket = io("wss://wolfgamebetabe.herokuapp.com/game", {transports: ['websocket']});
+//const socket = io("wss://localhost:5000/game", {transports: ['websocket']});
 
 export default function GameBoard() {
   const classes = useStyle();
