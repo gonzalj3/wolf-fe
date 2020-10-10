@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const socket = io("wss://wolfgamebetabe.herokuapp.com:5000/game", {transports: ['websocket']});
+const socket = io("wss://wolfgamebetabe.herokuapp.com/game", {transports: ['websocket']});
 //const socket = io("wss://localhost:5000/game", {transports: ['websocket']});
 
 export default function StudentGame() {
