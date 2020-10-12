@@ -63,6 +63,7 @@ export default function TeamPartition(props) {
             rosterList={team.students}
             students={props.data.students}
             isTeacher={props.isTeacher}
+            gameCode={props.data.gameCode}
           ></Team>
         );
       })}

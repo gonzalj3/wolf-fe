@@ -46,7 +46,7 @@ export default function StudentGame() {
       setData(data);
     });
     socket.on("newQuestionUpdate", (data) => {
-      //console.log(data);
+      console.log("newQuestion Update : ", data.question);
       setData(data);
       window.location.reload();
 
@@ -56,6 +56,7 @@ export default function StudentGame() {
       }*/
     });
     socket.on("setAnswerUpdate", (data) => {
+      console.log("setAnswerUpdate , ", data);
       setData(data);
     });
   }, data);
