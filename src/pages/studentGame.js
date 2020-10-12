@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import socketIOClient from "socket.io-client";
+import io from "socket.io-client";
+//import io from "socket.io"
 import TeamPartition from "../components/team-partition.js";
 import NavBar from "../components/navbar.js";
+import Question from "../components/question.js";
 import { makeStyles } from "@material-ui/core";
 import { DragDropContext } from "react-beautiful-dnd";
-import Question from "../components/question.js";
 import { GameInfoProvider } from "../context/GameInfoContext.js";
 
 const useStyles = makeStyles((theme) => ({
@@ -17,7 +18,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const socket = socketIOClient("ws://localhost:5000/game");
+const socket = io("wss://wolfgamebetabe.herokuapp.com/game", {transports: ['websocket']});
+//const socket = io("wss://localhost:5000/game", {transports: ['websocket']});
+
 export default function StudentGame() {
   const classes = useStyles();
   let [data, setData] = useState(null);

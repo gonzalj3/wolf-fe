@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
-import socketIOClient, { Socket } from "socket.io-client";
+import io from "socket.io-client";
+//import io from "socket.io"
+
 import NavBar from "../components/navbar";
 import GameCode from "../components/gamecode-button";
 import ScoreBoardButton from "../components/scoreboard-button";
@@ -23,12 +25,14 @@ const useStyle = makeStyles((theme) => ({
     backgroundColor: "#D3D3D3",
   },
 }));
-const socket = socketIOClient("ws://localhost:5000/game");
+const socket = io("wss://wolfgamebetabe.herokuapp.com/game", {transports: ['websocket']});
+//const socket = io("wss://localhost:5000/game", {transports: ['websocket']});
+
 export default function GameBoard() {
   const classes = useStyle();
 
   let [data, setData] = useState(null);
-  const url = "http://localhost:4000/api/game/current";
+  const url = "https://wolfgamebetabe.herokuapp.com/api/game/current";
 
   useEffect(() => {
     socket.on("newTeamUpdate", (data) => {
