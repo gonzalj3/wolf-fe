@@ -21,7 +21,7 @@ const useStyles = makeStyles((props) => ({
 
 export default function NavBar(props) {
   //Check if we have a student if so pass props to useStyles
-    classes = useStyles(props);
+  const classes = useStyles(props);
   return (
     <div>
       <AppBar position="static" className={classes.appBar}>

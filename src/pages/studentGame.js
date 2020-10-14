@@ -18,24 +18,19 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// const socket = io("wss://wolfgamebetabe.herokuapp.com/game", {transports: ['websocket']});
-const socket = io("wss://localhost:5000/game", {transports: ['websocket']});
-
 export default function StudentGame() {
   const classes = useStyles();
   let [data, setData] = useState(null);
-
+  let studentCSS = {
+    color: "teal",
+  }
+  const socket = process.env.NODE_ENV === 'production' ? io(process.env.REACT_APP_WS_SERVER, {transports: ['websocket']}) : io(process.env.REACT_APP_WS_DEV_SERVER, {transports: ['websocket']})
+  
   useEffect(() => {
-    /*socket.on("getGameEvent", (data) => {
-      console.log("on hi got some data : ", data);
-    });
-    */
-    //let gameRoom = localStorage.gameCode;
+
     const gameCode = localStorage.getItem("gameCode");
     const name = localStorage.getItem("name");
-    let studentCSS = {
-      color: "teal",
-    }
+
     console.log("about to join game room: ", gameCode, name);
     let studentInfo = { room: gameCode, name: name };
     socket.emit("joinGameRoom", studentInfo);

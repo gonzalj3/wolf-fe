@@ -25,18 +25,15 @@ const useStyle = makeStyles((theme) => ({
     backgroundColor: "#D3D3D3",
   },
 }));
-//const socket = io("wss://wolfgamebetabe.herokuapp.com/game", {transports: ['websocket']});
-const socket = io("wss://localhost:5000/game", {transports: ['websocket']});
 
 export default function GameBoard() {
   const classes = useStyle();
 
   let [data, setData] = useState(null);
-  const url = null 
-  if(proces.env.NODE_ENV === 'production'){
-    url = `${process.env.REACT_APP_SERVER_URL}api/game/current`; } else {
-      url = `${process.env.REACT_APP_DEV_SERVER_URL}api/game/current`
-    }
+  const socket = process.env.NODE_ENV === 'production' ? io(process.env.REACT_APP_WS_SERVER, {transports: ['websocket']}) : io(process.env.REACT_APP_WS_DEV_SERVER, {transports: ['websocket']})
+
+  const url = process.env.NODE_ENV === 'production' ? `${process.env.REACT_APP_SERVER_URL}api/game/current` : `${process.env.REACT_APP_DEV_SERVER_URL}api/game/current`
+  
   let teacherNavBarCSS = {
     color: "primary"
   }
