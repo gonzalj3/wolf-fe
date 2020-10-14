@@ -25,15 +25,21 @@ const useStyle = makeStyles((theme) => ({
     backgroundColor: "#D3D3D3",
   },
 }));
-const socket = io("wss://wolfgamebetabe.herokuapp.com/game", {transports: ['websocket']});
-//const socket = io("wss://localhost:5000/game", {transports: ['websocket']});
+//const socket = io("wss://wolfgamebetabe.herokuapp.com/game", {transports: ['websocket']});
+const socket = io("wss://localhost:5000/game", {transports: ['websocket']});
 
 export default function GameBoard() {
   const classes = useStyle();
 
   let [data, setData] = useState(null);
-  const url = "https://wolfgamebetabe.herokuapp.com/api/game/current";
-
+  const url = null 
+  if(proces.env.NODE_ENV === 'production'){
+    url = `${process.env.REACT_APP_SERVER_URL}api/game/current`; } else {
+      url = `${process.env.REACT_APP_DEV_SERVER_URL}api/game/current`
+    }
+  let teacherNavBarCSS = {
+    color: "primary"
+  }
   useEffect(() => {
     socket.on("newTeamUpdate", (data) => {
       console.log("We are getting new data about a new Team.");
@@ -198,7 +204,7 @@ export default function GameBoard() {
   }
   return (
     <div>
-      <NavBar>
+      <NavBar data={teacherNavBarCSS}>
         <GameCodeVerifier data={data} />
         <ScoreBoardButton />
         <ReportButton />

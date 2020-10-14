@@ -18,8 +18,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const socket = io("wss://wolfgamebetabe.herokuapp.com/game", {transports: ['websocket']});
-//const socket = io("wss://localhost:5000/game", {transports: ['websocket']});
+// const socket = io("wss://wolfgamebetabe.herokuapp.com/game", {transports: ['websocket']});
+const socket = io("wss://localhost:5000/game", {transports: ['websocket']});
 
 export default function StudentGame() {
   const classes = useStyles();
@@ -33,7 +33,9 @@ export default function StudentGame() {
     //let gameRoom = localStorage.gameCode;
     const gameCode = localStorage.getItem("gameCode");
     const name = localStorage.getItem("name");
-
+    let studentCSS = {
+      color: "teal",
+    }
     console.log("about to join game room: ", gameCode, name);
     let studentInfo = { room: gameCode, name: name };
     socket.emit("joinGameRoom", studentInfo);
@@ -76,7 +78,7 @@ export default function StudentGame() {
 
   return (
     <div>
-      <NavBar></NavBar>
+      <NavBar data={studentCSS}></NavBar>
       <GameInfoProvider
         value={{
           socket: socket,
