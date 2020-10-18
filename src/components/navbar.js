@@ -20,8 +20,6 @@ const useStyles = makeStyles({
 });
 
 export default function NavBar(props) {
-  //Check if we have a student if so pass props to useStyles
-  console.log("this is props.data.color : ", props.data.color)
   const classes = useStyles(props);
   return (
     <div>

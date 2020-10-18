@@ -33,10 +33,10 @@ export default function GameBoard() {
   const socket = process.env.NODE_ENV === 'production' ? io(process.env.REACT_APP_WS_SERVER, {transports: ['websocket']}) : io(process.env.REACT_APP_WS_DEV_SERVER, {transports: ['websocket']})
 
   const url = process.env.NODE_ENV === 'production' ? `${process.env.REACT_APP_SERVER_URL}api/game/current` : `${process.env.REACT_APP_DEV_SERVER_URL}api/game/current`
-  
-  let teacherNavBarCSS = {
-    color: "primary"
+  let teacherOrangeNavBar = {
+    color: "primary",
   }
+
   useEffect(() => {
     socket.on("newTeamUpdate", (data) => {
       console.log("We are getting new data about a new Team.");
@@ -82,8 +82,7 @@ export default function GameBoard() {
       return;
     }
     if (
-      destination.droppableId === source.droppableId &&
-      destination.index === source.index
+      destination.droppableId === source.droppableId
     ) {
       console.log("droppable adn index same");
 
@@ -201,7 +200,7 @@ export default function GameBoard() {
   }
   return (
     <div>
-      <NavBar data={teacherNavBarCSS}>
+      <NavBar data={teacherOrangeNavBar}>
         <GameCodeVerifier data={data} />
         <ScoreBoardButton />
         <ReportButton />
