@@ -56,7 +56,9 @@ export default function LogIn({ buttonTitle }) {
     //console.log(thing);
     console.log(email, password, firstName, lastName, email, schoolName);
     //Make a request to backend
-    const url = "https://wolfgamebetabe.herokuapp.com/api/register";
+    //const url = "https://wolfgamebetabe.herokuapp.com/api/register";
+    const url = process.env.NODE_ENV ?  `${process.env.REACT_APP_SERVER_URL}api/register` : `${process.env.REACT_APP_DEV_SERVER_URL}api/register`
+
     const options = {
       method: "POST",
       headers: { "Content-Type": "application/json" },

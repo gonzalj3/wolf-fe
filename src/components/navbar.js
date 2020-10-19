@@ -4,9 +4,9 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles({
   appBar: {
-    background: "primary",
+    background: props => props.data.color,//"primary",
   },
   toolBar: {
     display: "flex",
@@ -17,10 +17,10 @@ const useStyles = makeStyles((theme) => ({
     width: 64,
     height: 64,
   },
-}));
+});
 
 export default function NavBar(props) {
-  const classes = useStyles();
+  const classes = useStyles(props);
   return (
     <div>
       <AppBar position="static" className={classes.appBar}>

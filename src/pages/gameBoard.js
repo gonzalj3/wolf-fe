@@ -25,14 +25,17 @@ const useStyle = makeStyles((theme) => ({
     backgroundColor: "#D3D3D3",
   },
 }));
-const socket = io("wss://wolfgamebetabe.herokuapp.com/game", {transports: ['websocket']});
-//const socket = io("wss://localhost:5000/game", {transports: ['websocket']});
 
 export default function GameBoard() {
   const classes = useStyle();
 
   let [data, setData] = useState(null);
-  const url = "https://wolfgamebetabe.herokuapp.com/api/game/current";
+  const socket = process.env.NODE_ENV === 'production' ? io(process.env.REACT_APP_WS_SERVER, {transports: ['websocket']}) : io(process.env.REACT_APP_WS_DEV_SERVER, {transports: ['websocket']})
+
+  const url = process.env.NODE_ENV === 'production' ? `${process.env.REACT_APP_SERVER_URL}api/game/current` : `${process.env.REACT_APP_DEV_SERVER_URL}api/game/current`
+  let teacherOrangeNavBar = {
+    color: "primary",
+  }
 
   useEffect(() => {
     socket.on("newTeamUpdate", (data) => {
@@ -79,8 +82,7 @@ export default function GameBoard() {
       return;
     }
     if (
-      destination.droppableId === source.droppableId &&
-      destination.index === source.index
+      destination.droppableId === source.droppableId
     ) {
       console.log("droppable adn index same");
 
@@ -198,7 +200,7 @@ export default function GameBoard() {
   }
   return (
     <div>
-      <NavBar>
+      <NavBar data={teacherOrangeNavBar}>
         <GameCodeVerifier data={data} />
         <ScoreBoardButton />
         <ReportButton />

@@ -5,6 +5,7 @@ import LogIn from "../components/dialog-LogIn";
 import JoinGame from "../components/dialog-JoinGame";
 import NavBar from "../components/navbar";
 const useStyles = makeStyles((theme) => ({
+
   img: {
     backgroundImage: 'url("/images/teresa&kim.png")',
     backgroundRepeat: "no-repeat",
@@ -15,13 +16,15 @@ const useStyles = makeStyles((theme) => ({
     height: "100vh",
   },
 }));
-
+let teacherOrangeNavBar = {
+  color: "primary",
+}
 export default function Welcome() {
   const classes = useStyles();
   return (
     <div>
       <div>
-        <NavBar>
+        <NavBar data={teacherOrangeNavBar}>
           <div></div>
           <LogIn buttonTitle={`Teacher`} />
           <JoinGame buttonTitle={`Student`} />
