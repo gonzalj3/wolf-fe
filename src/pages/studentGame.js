@@ -40,7 +40,7 @@ console.log("the process env : ", process.env.NODE_ENV)
     if(sessionStorage.getItem("teamColor")){
       setTeam({color: sessionStorage.getItem("teamColor")})
     }
-    socket.on("gameData", (gameData) => {
+    socket.on("welcome", (gameData) => {
       console.log(`gameData is ${gameData}`, gameData);
       //Need to add logic here (if we still get data here from joinGameRoom) to store a socket.id or something in order to remember the person. probably just teh person's returned name
       sessionStorage.setItem("socketRegistered", true)
