@@ -25,31 +25,25 @@ export default function StudentGame() {
     color: "primary",
   }
   let [team, setTeam] = useState(studentCSS)
-
+  const gameCode = localStorage.getItem("gameCode");
+  const name = localStorage.getItem("name");
   const socket = process.env.NODE_ENV === 'production' ? io(process.env.REACT_APP_WS_SERVER, {transports: ['websocket']}) : io(process.env.REACT_APP_WS_DEV_SERVER, {transports: ['websocket']})
-  
-  useEffect(() => {
-    if(localStorage.getItem("teamColor")){
-      setTeam({color:localStorage.getItem("teamColor")})
-    }
-    const gameCode = localStorage.getItem("gameCode");
-    const name = localStorage.getItem("name");
-//Add logic here to check for existing data in local storage
-//if there is some then we will setData with a seperate socket event - rejoinGameRoom
-//else we are new we will setData with a socket even tof joinGameRoom
-    console.log("about to join game room: ", gameCode, name);
-    let studentInfo = { room: gameCode, name: name };
-    /*if(localStorage.getItem('socketRegistered')){
-      socket.emit("updateSocketStudent", studentInfo)
-    } else {*/
-      socket.emit("joinGameRoom", studentInfo);
-      socket.emit("updateSocketStudent", studentInfo)
+  let studentInfo = { room: gameCode, name: name };
 
-    //}
+console.log("about to join game room: ", gameCode, name);
+
+console.log("the process env : ", process.env.NODE_ENV)
+
+  useEffect(() => {
+    socket.emit("joinGameRoom", studentInfo);
+    console.log("team color is : ", sessionStorage.getItem("teamColor"))
+    if(sessionStorage.getItem("teamColor")){
+      setTeam({color: sessionStorage.getItem("teamColor")})
+    }
     socket.on("gameData", (gameData) => {
-      console.log(`gameData is ${gameData}`);
+      console.log(`gameData is ${gameData}`, gameData);
       //Need to add logic here (if we still get data here from joinGameRoom) to store a socket.id or something in order to remember the person. probably just teh person's returned name
-      localStorage.setItem("socketRegistered", true)
+      sessionStorage.setItem("socketRegistered", true)
       setData(gameData);
     });
     socket.on("newTeamUpdate", (data) => {
@@ -61,22 +55,20 @@ export default function StudentGame() {
       setData(data);
       window.location.reload();
 
-      //This should be done at load time.
-      /*if (data.question.index) {
-        localStorage.setItem("lastQuestion", data.question.index);
-      }*/
     });
     socket.on("setAnswerUpdate", (data) => {
       console.log("setAnswerUpdate , ", data);
       setData(data);
     });
+
     socket.on("colorUpdate", (data) => {
       console.log("got a new color: ", data)
-      localStorage.setItem("teamColor", data.color)
+      sessionStorage.setItem("teamColor", data.color)
       setTeam(data)
     })
 
-  }, data);
+
+  }, [])
 
 
 

@@ -66,7 +66,6 @@ const useStyle = makeStyles((theme) => ({
 }));
 export default function Roster({ rosterList }) {
   const classes = useStyle();
-  console.log("In Roster Component: ", rosterList);
   return (
     <div className={classes.container}>
       <Card className={classes.students}>
@@ -86,7 +85,6 @@ export default function Roster({ rosterList }) {
             >
               {rosterList.droppable.roster.students.map((number, index) => {
                 const student = rosterList.students[number];
-                console.log("student looks like:", student);
                 return (
                   <Student key={student.id} student={student} index={index} />
                 );

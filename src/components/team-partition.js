@@ -52,8 +52,7 @@ export default function TeamPartition(props) {
 
       {props.data.TeamOrder.map((item) => {
         const team = props.data.droppable[item];
-        console.log("rosterList : ", team.students);
-        console.log("students : ", props.data.students);
+
         return (
           <Team
             id={team.id}

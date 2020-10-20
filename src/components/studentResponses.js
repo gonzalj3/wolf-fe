@@ -33,7 +33,6 @@ const StudentResponse = () => {
       setResponses(data);
     });
   }, responses);
-  console.log("from student response : ", gameInfo);
   return (
     <table className={classes.tableContainer}>
       <tr className={classes.table}>

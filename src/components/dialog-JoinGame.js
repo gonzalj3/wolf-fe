@@ -41,7 +41,7 @@ export default function JoinGame({ buttonTitle }) {
     console.log(gameCode, nickName, lastName);
     //Make a request to backend
     //const url = "https://wolfgamebetabe.herokuapp.com/api/joinGame/student";
-    const url = process.env.NODE_ENV ?  `${process.env.REACT_APP_SERVER_URL}api/joinGame/student` : `${process.env.REACT_APP_DEV_SERVER_URL}api/joinGame/student`
+    const url = process.env.NODE_ENV === 'production' ?`${process.env.REACT_APP_SERVER_URL}api/joinGame/student` : `${process.env.REACT_APP_DEV_SERVER_URL}api/joinGame/student`
 
     const options = {
       method: "POST",
