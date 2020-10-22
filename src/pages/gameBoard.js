@@ -30,6 +30,7 @@ export default function GameBoard() {
   const classes = useStyle();
 
   let [data, setData] = useState(null);
+  let [studentResponses, setResponses] = useState([{name:"none", team:"none", response:"none"}])
   const socket = process.env.NODE_ENV === 'production' ? io(process.env.REACT_APP_WS_SERVER, {transports: ['websocket']}) : io(process.env.REACT_APP_WS_DEV_SERVER, {transports: ['websocket']})
 
   const url = process.env.NODE_ENV === 'production' ? `${process.env.REACT_APP_SERVER_URL}api/game/current` : `${process.env.REACT_APP_DEV_SERVER_URL}api/game/current`
@@ -50,12 +51,21 @@ export default function GameBoard() {
       setData(data);
     });
     socket.on("newQuestionUpdate", (data) => {
-      //console.log(data);
+      console.log("the data we have in newQuestionUpdate", data);
+      setResponses(data.responses)
+
       setData(data);
     });
-    /*socket.on("newStudentAnswer", (data) => {
-      console.log("we got some new student answer  ", data);
-    });*/
+    socket.on("newStudentAnswer", (responses) => {
+      console.log("we got some new student answer  ", responses);
+      // let newData = data
+      // console.log("data : ", data)
+      // console.log("newData : ", newData)
+      // newData.responses = data
+      // setData(newData)
+      //setResponses(data)
+      setResponses(responses)
+    });
     //Ensure that we are authorized to fetch data.
     authFetch(url)
       .then((res) => res.json())
@@ -67,11 +77,16 @@ export default function GameBoard() {
         console.log("sent gamecode", res.gameCode);
         localStorage.setItem("gameCode", res.gameCode);
         setData(res);
+        setResponses(res.responses)
       })
       .catch((error) => {
         console.log("error", error);
       });
-  }, data);
+
+      return ()=>{
+        console.log("unmounted gameboard")
+      }
+  }, []);
 
   function onDragEnd(result) {
     //
@@ -207,7 +222,7 @@ export default function GameBoard() {
         <ExpandMoreIcon />
       </NavBar>
       <GameInfoProvider
-        value={{ socket: socket, isTeacher: true, gameState: data }}
+        value={{ socket: socket, isTeacher: true, gameState: data , responses: studentResponses}}
       >
         <DragDropContext onDragEnd={onDragEnd}>
           <TeamsAndRoster data={data} />

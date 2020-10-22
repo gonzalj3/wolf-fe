@@ -55,6 +55,7 @@ export default function TeamPartition(props) {
 
         return (
           <Team
+          key={team.id}
             id={team.id}
             name={team.name}
             score={team.score}

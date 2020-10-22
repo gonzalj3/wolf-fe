@@ -63,6 +63,8 @@ export default function Question(props) {
   //const [circle, setCircle] = useState("false");
   //const question = ;
   //const data = props;
+  const socket = gameInfo.socket;
+  console.log("our socket in question is : ", socket)
 
   const cancelQuestion = (event) => {
     console.log(" the question index is : ", props.data.question.index);
@@ -83,6 +85,7 @@ export default function Question(props) {
       };
       console.log("the data we are sending on award Points : ", data);
       gameInfo.socket.emit("awardPoints", data);
+      
       window.location.reload();
     }
   };
@@ -142,13 +145,13 @@ export default function Question(props) {
     }
   };
 
-  const PresentResults = () => {
+  /*let PresentResults = () => {
     if (gameInfo.isTeacher) {
-      return <StudentResponse></StudentResponse>;
+      return ;
     } else {
-      return null;
+      return <div></div>;
     }
-  };
+  };*/
 
   function AvailableQuestion(props) {
     const question = props.data.data;
@@ -198,8 +201,8 @@ export default function Question(props) {
             <div className={classes.responseContainer}>
               <TeacherButtons></TeacherButtons>
             </div>
-            <PresentResults></PresentResults>
-          </Card>
+            <StudentResponse></StudentResponse>
+           </Card>
         </div>
       );
     } else {

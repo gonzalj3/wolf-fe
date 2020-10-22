@@ -15,45 +15,39 @@ const useStyle = makeStyles((theme) => ({
   },
 }));
 
-const StudentResponse = () => {
+export default function StudentResponse(){
   const classes = useStyle();
   const gameInfo = useContext(GameInfoContext);
 
-  const socket = gameInfo.socket;
+  console.log("gameInfo : ", gameInfo)
 
-  let [responses, setResponses] = useState([]);
-  useEffect(() => {
-    console.log("here is gameInfo: ", gameInfo);
-    if (gameInfo.gameState.responses) {
-      console.log("we have responses :", gameInfo.gameState.responses);
-      setResponses(gameInfo.gameState.responses);
-    }
-    socket.on("newStudentAnswer", (data) => {
-      console.log("from studentResponses new student data  ", data);
-      setResponses(data);
-    });
-  }, responses);
-  return (
-    <table className={classes.tableContainer}>
-      <tr className={classes.table}>
-        <th className={classes.table}>Name</th>
-        <th className={classes.table}>Team</th>
-        <th className={classes.table}>Answer</th>
-      </tr>
-      {responses.map((student) => (
-        <tr>
-          <td className={classes.table}>{`${student.name}`}</td>
-          <td className={classes.table}>{`${student.team}`}</td>
-          <td className={classes.table}>{`${student.response}`}</td>
+  if(gameInfo.isTeacher) {
+    return (
+      <table className={classes.tableContainer}>
+        <tbody>
+        <tr className={classes.table}>
+          <th key={""}className={classes.table}>Name</th>
+          <th className={classes.table}>Team</th>
+          <th className={classes.table}>Answer</th>
         </tr>
-      ))}
-      <tr className={classes.table}>
-        <td className={classes.table}>{`.`}</td>
-        <td className={classes.table}></td>
-        <td className={classes.table}></td>
-      </tr>
-    </table>
-  );
+        {gameInfo.responses.map((student) => (
+          <tr key={`${student.name}${student.team}`}>
+            <td key={`${student.name}`} className={classes.table}>{`${student.name}`}</td>
+            <td key={`${student.team}`}className={classes.table}>{`${student.team}`}</td>
+            <td key={`${student.response}`}className={classes.table}>{`${student.response}`}</td>
+          </tr>
+        ))}
+        <tr className={classes.table}>
+          <td className={classes.table}>{`.`}</td>
+          <td className={classes.table}></td>
+          <td className={classes.table}></td>
+        </tr>
+        </tbody>
+      </table>
+    );
+  } else {
+    return <div></div>
+  }
+
 };
 
-export default StudentResponse;
