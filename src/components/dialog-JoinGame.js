@@ -94,7 +94,7 @@ export default function JoinGame({ buttonTitle }) {
             margin="dense"
             id="nickName"
             name="nickName"
-            label="Game Name"
+            label="Player Name"
             //type="password"
             onInput={(e) => setFirstName(e.target.value)}
             fullWidth

@@ -126,7 +126,7 @@ export default function Question(props) {
       return (
         <div className={classes.teacherButtonsContainer}>
           <Button className={classes.answerButton} onClick={relayAnswer}>
-            Submit
+            Stop Accepting Answers
           </Button>
           <Button className={classes.answerButton} onClick={awardPoints}>
             Award Points
