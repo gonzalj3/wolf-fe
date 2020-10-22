@@ -21,7 +21,7 @@ export default function StudentResponse(){
 
   console.log("gameInfo : ", gameInfo)
 
-  if(gameInfo.isTeacher) {
+  if(gameInfo.isTeacher && gameInfo.responses) {
     return (
       <table className={classes.tableContainer}>
         <tbody>
