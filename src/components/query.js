@@ -8,12 +8,15 @@ const useStyle = makeStyles((theme) => ({
     justifyContent: "center",
     flexDirection: "row",
     marginBottom: "10px",
+    backgroundColor: "#F4F6FF",
+
   },
   setQuestion: {
     display: "flex",
     justifyContent: "center",
     flexDirection: "row",
     marginBottom: "10px",
+
   },
   students: {
     display: "flex",
@@ -21,13 +24,17 @@ const useStyle = makeStyles((theme) => ({
     justifyContent: "center",
   },
   container: {
-    width: "90%",
-    height: "14vh",
+    //width: "100%",
+    height: "100%",
+    //height: "14vh",
     display: "flex",
     flexDirection: "column",
     padding: "16px",
-    marginLeft: "5%",
+    //marginLeft: "5%",
     flexWrap: "nowrap",
+    backgroundColor: "#F4F6FF",
+    overflow: "auto",
+
   },
   font: {
     fontSize: 10,

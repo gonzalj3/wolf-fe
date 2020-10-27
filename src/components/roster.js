@@ -12,20 +12,12 @@ const useStyle = makeStyles((theme) => ({
     height: "5vh",
   },
   container: {
-    width: "95%",
     height: "95px",
-    display: "flex",
-    //flexWrap: "wrap",
     flexDirection: "row",
-    padding: "0px",
-    alignItems: "center",
-    marginLeft: "25px",
-    marginRight: "25px",
   },
   dropInner: {
     display: "flex",
     flexDirection: "row",
-    width: "100%",
     height: "100%",
     padding: "8px",
     overflow: "scroll",
@@ -38,17 +30,11 @@ const useStyle = makeStyles((theme) => ({
   students: {
     display: "flex",
     flexDirection: "row",
-    //width: "100%",
-    //height: "100%",
-    maxWidth: "90%",
     height: "85px",
-    flexGrow: "1",
-    border: "solid 1px black",
     backgroundColor: "White",
   },
   card: {
     height: "7vh",
-    width: "7vh",
     borderRadius: "8px",
     borderColor: "#759CFC",
     borderStyle: "solid",
@@ -66,12 +52,11 @@ const useStyle = makeStyles((theme) => ({
 }));
 export default function Roster({ rosterList }) {
   const classes = useStyle();
+  //Random button removed. 
   return (
-    <div className={classes.container}>
       <Card className={classes.students}>
         <div className={classes.unassigned}>
           <Typography>Unassigned</Typography>
-          <Button variant="contained">Random </Button>
         </div>
         <Droppable
           droppableId={rosterList.droppable.roster.id}
@@ -94,6 +79,5 @@ export default function Roster({ rosterList }) {
           )}
         </Droppable>
       </Card>
-    </div>
   );
 }

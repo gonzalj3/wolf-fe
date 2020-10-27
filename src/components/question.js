@@ -13,8 +13,9 @@ const useStyles = makeStyles((theme) => ({
     margin: "20px",
     marginLeft: "100px",
     marginRight: "100px",
-    backgroundColor: "#D3D3D3",
+    backgroundColor: "#FAFAFA",
     height: "100%",
+    flexShrink: 0,
   },
   teacherButtonsContainer: {
     display: "flex",
@@ -125,20 +126,20 @@ export default function Question(props) {
     if (gameInfo.isTeacher) {
       return (
         <div className={classes.teacherButtonsContainer}>
-          <Button className={classes.answerButton} onClick={relayAnswer}>
+          <Button variant={"contained"} className={classes.answerButton} onClick={relayAnswer}>
             Stop Accepting Answers
           </Button>
-          <Button className={classes.answerButton} onClick={awardPoints}>
+          <Button variant={"contained"} className={classes.answerButton} onClick={awardPoints}>
             Award Points
           </Button>
-          <Button className={classes.answerButton} onClick={cancelQuestion}>
+          <Button variant={"contained"} className={classes.answerButton} onClick={cancelQuestion}>
             Cancel
           </Button>
         </div>
       );
     } else {
       return (
-        <Button className={classes.answerButton} onClick={relayAnswer}>
+        <Button variant={"contained"} className={classes.answerButton} onClick={relayAnswer}>
           Submit
         </Button>
       );
@@ -174,7 +175,9 @@ export default function Question(props) {
               }
             >
               <Button
+              boxShadow={0}
                 className={classes.answerButton}
+                variant={"contained"}
                 value={"true"}
                 onClick={selectAnswer}
               >
@@ -187,6 +190,7 @@ export default function Question(props) {
               </Button>
               <Button
                 className={classes.answerButton}
+                variant={"contained"}
                 value={"false"}
                 onClick={selectAnswer}
               >

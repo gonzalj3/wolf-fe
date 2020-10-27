@@ -15,6 +15,7 @@ import { DragDropContext } from "react-beautiful-dnd";
 import initialData from "../data/initial-data";
 import { authFetch } from "../helpers/authFetch.js";
 import { GameInfoProvider } from "../context/GameInfoContext.js";
+import Button from '@material-ui/core/Button';
 
 const useStyle = makeStyles((theme) => ({
   container: {
@@ -22,8 +23,23 @@ const useStyle = makeStyles((theme) => ({
     flexWrap: "wrap",
     flexDirection: "row",
     padding: "16px",
-    backgroundColor: "#D3D3D3",
+    backgroundColor: "#F4F6FF",
   },
+  middlebar: {
+    display: "flex",
+    flexDirection: "row",
+    flexWrap: "nowrap",
+    width: "95%",
+  },
+  containerLarger: {
+    backgroundColor: "#F4F6FF",
+    display: "flex",
+    flexDirection: "row",
+
+  },
+  endgame:{
+    marginLeft: "10px"
+  }
 }));
 
 export default function GameBoard() {
@@ -206,20 +222,20 @@ export default function GameBoard() {
             isTeacher={true}
             socket={socket}
           ></TeamPartition>
-          <Roster rosterList={gameInfo}></Roster>
+          <div className={classes.middlebar}>
+          <Roster rosterList={gameInfo}></Roster><Button className={classes.endgame} variant={"contained"}>End Game</Button>
+          </div>
         </div>
       );
     } else {
       return null;
     }
   }
+  //scoreboard and report button removed. 
   return (
-    <div>
+    <div classname={classes.containerLarger}>
       <NavBar data={teacherOrangeNavBar}>
         <GameCodeVerifier data={data} />
-        <ScoreBoardButton />
-        <ReportButton />
-        <ExpandMoreIcon />
       </NavBar>
       <GameInfoProvider
         value={{ socket: socket, isTeacher: true, gameState: data , responses: studentResponses}}
