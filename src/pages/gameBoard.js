@@ -4,18 +4,16 @@ import io from "socket.io-client";
 
 import NavBar from "../components/navbar";
 import GameCode from "../components/gamecode-button";
-import ScoreBoardButton from "../components/scoreboard-button";
-import ReportButton from "../components/report-button";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+
 import Roster from "../components/roster";
 import TeamPartition from "../components/team-partition";
 import Query from "../components/query";
 import { makeStyles } from "@material-ui/core";
 import { DragDropContext } from "react-beautiful-dnd";
-import initialData from "../data/initial-data";
 import { authFetch } from "../helpers/authFetch.js";
 import { GameInfoProvider } from "../context/GameInfoContext.js";
 import Button from '@material-ui/core/Button';
+import EndGame from "../components/dialog-EndGme.js"
 
 const useStyle = makeStyles((theme) => ({
   container: {
@@ -37,9 +35,7 @@ const useStyle = makeStyles((theme) => ({
     flexDirection: "row",
 
   },
-  endgame:{
-    marginLeft: "10px"
-  }
+
 }));
 
 export default function GameBoard() {
@@ -202,6 +198,7 @@ export default function GameBoard() {
     setData(newData);
     return;
   }
+
   function GameCodeVerifier(props) {
     const data = props.data;
     if (data) {
@@ -223,7 +220,7 @@ export default function GameBoard() {
             socket={socket}
           ></TeamPartition>
           <div className={classes.middlebar}>
-          <Roster rosterList={gameInfo}></Roster><Button className={classes.endgame} variant={"contained"}>End Game</Button>
+          <Roster rosterList={gameInfo}></Roster><EndGame></EndGame>
           </div>
         </div>
       );
@@ -232,6 +229,9 @@ export default function GameBoard() {
     }
   }
   //scoreboard and report button removed. 
+
+
+  
   return (
     <div classname={classes.containerLarger}>
       <NavBar data={teacherOrangeNavBar}>
