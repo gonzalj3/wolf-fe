@@ -37,7 +37,6 @@ export default function StudentGame() {
   console.log(" here is our gameCode and name : ", gameCode, name)
   console.log(" typeof gamecode ", typeof(gameCode))  
 
-  let studentInfo = { room: gameCode, name: name };
 
 console.log("about to join game room: ", gameCode, name);
 
@@ -47,8 +46,10 @@ console.log("the process env : ", process.env.NODE_ENV)
     if (gameCode === null){
       console.log(" we are now moving to different place gameCode")
       window.location.replace("/");
+    } else {
+      let studentInfo = { room: gameCode, name: name };
+      socket.emit("joinGameRoom", studentInfo);
     }
-    socket.emit("joinGameRoom", studentInfo);
     console.log("team color is : ", sessionStorage.getItem("teamColor"))
     if(sessionStorage.getItem("teamColor")){
       setTeam({color: sessionStorage.getItem("teamColor")})
