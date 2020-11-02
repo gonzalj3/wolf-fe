@@ -58,7 +58,7 @@ export default function LogIn({ buttonTitle }) {
         if (!res.error) {
           //Save data on local storage
           localStorage.setItem("isAuthenticated", true);
-          localStorage.setItem("user", JSON.stringify(res.user));
+          localStorage.setItem("email", res.user.email);
           localStorage.setItem("token", JSON.stringify(res.token));
 
           //Update the state of Auth providers

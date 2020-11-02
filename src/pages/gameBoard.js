@@ -13,7 +13,7 @@ import { DragDropContext } from "react-beautiful-dnd";
 import { authFetch } from "../helpers/authFetch.js";
 import { GameInfoProvider } from "../context/GameInfoContext.js";
 import Button from '@material-ui/core/Button';
-import EndGame from "../components/dialog-EndGme.js"
+import EndGame from "../components/dialog-EndGame.js"
 
 const useStyle = makeStyles((theme) => ({
   container: {
@@ -233,7 +233,7 @@ export default function GameBoard() {
 
   
   return (
-    <div classname={classes.containerLarger}>
+    <div >
       <NavBar data={teacherOrangeNavBar}>
         <GameCodeVerifier data={data} />
       </NavBar>

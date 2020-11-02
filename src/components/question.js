@@ -175,7 +175,6 @@ export default function Question(props) {
               }
             >
               <Button
-              boxShadow={0}
                 className={classes.answerButton}
                 variant={"contained"}
                 value={"true"}

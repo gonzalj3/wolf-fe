@@ -19,6 +19,7 @@ const useStyle = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "row",
     height: "100%",
+    width: "100%",
     padding: "8px",
     overflow: "scroll",
   },
@@ -31,6 +32,7 @@ const useStyle = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "row",
     height: "85px",
+    width: "90%",
     backgroundColor: "White",
   },
   card: {

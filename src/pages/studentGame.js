@@ -7,6 +7,8 @@ import Question from "../components/question.js";
 import { makeStyles } from "@material-ui/core";
 import { DragDropContext } from "react-beautiful-dnd";
 import { GameInfoProvider } from "../context/GameInfoContext.js";
+import Dialog from "@material-ui/core/Dialog";
+import DialogTitle from "@material-ui/core/DialogTitle";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -20,11 +22,13 @@ const useStyles = makeStyles((theme) => ({
 
 export default function StudentGame() {
   const classes = useStyles();
-  let [data, setData] = useState(null);
   let studentCSS = {
     color: "primary",
   }
+  let [data, setData] = useState(null);
   let [team, setTeam] = useState(studentCSS)
+  let [openEndDialog, setOpenEndDialog] = useState(false)
+
   const gameCode = localStorage.getItem("gameCode");
   const name = localStorage.getItem("name");
   const socket = process.env.NODE_ENV === 'production' ? io(process.env.REACT_APP_WS_SERVER, {transports: ['websocket']}) : io(process.env.REACT_APP_WS_DEV_SERVER, {transports: ['websocket']})
@@ -67,6 +71,14 @@ console.log("the process env : ", process.env.NODE_ENV)
       setTeam(data)
     })
 
+    socket.on("endGame", (data) => {
+      console.log("game over! data : ", data)
+      if(gameCode == data.gameCode){
+        //we open a dialog box here. 
+        setOpenEndDialog(true)
+      }
+    })
+
 
   }, [])
 
@@ -100,6 +112,7 @@ console.log("the process env : ", process.env.NODE_ENV)
         </DragDropContext>
         <Question data={data}></Question>
       </GameInfoProvider>
+      <Dialog open={openEndDialog}><DialogTitle>End of Game!</DialogTitle></Dialog>
     </div>
   );
 }
