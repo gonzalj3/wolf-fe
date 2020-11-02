@@ -5,6 +5,7 @@ import { makeStyles } from "@material-ui/core";
 const useStyle = makeStyles((theme) => ({
   tableContainer: {
     marginTop: "100px",
+    width: "100%",
     border: "solid 1px black",
     borderCollapse: "collapse",
     background: "white",

@@ -32,6 +32,11 @@ export default function StudentGame() {
   const gameCode = localStorage.getItem("gameCode");
   const name = localStorage.getItem("name");
   const socket = process.env.NODE_ENV === 'production' ? io(process.env.REACT_APP_WS_SERVER, {transports: ['websocket']}) : io(process.env.REACT_APP_WS_DEV_SERVER, {transports: ['websocket']})
+  console.log(" soemthing fishy ")  
+
+  console.log(" here is our gameCode and name : ", gameCode, name)
+  console.log(" typeof gamecode ", typeof(gameCode))  
+
   let studentInfo = { room: gameCode, name: name };
 
 console.log("about to join game room: ", gameCode, name);
@@ -39,6 +44,10 @@ console.log("about to join game room: ", gameCode, name);
 console.log("the process env : ", process.env.NODE_ENV)
 
   useEffect(() => {
+    if (gameCode === null){
+      console.log(" we are now moving to different place gameCode")
+      window.location.replace("/");
+    }
     socket.emit("joinGameRoom", studentInfo);
     console.log("team color is : ", sessionStorage.getItem("teamColor"))
     if(sessionStorage.getItem("teamColor")){
@@ -75,6 +84,11 @@ console.log("the process env : ", process.env.NODE_ENV)
       console.log("game over! data : ", data)
       if(gameCode == data.gameCode){
         //we open a dialog box here. 
+        localStorage.removeItem("gameCode")
+        localStorage.removeItem("name")
+        sessionStorage.removeItem("teamColor")
+        sessionStorage.removeItem("socketRegistered")
+
         setOpenEndDialog(true)
       }
     })
