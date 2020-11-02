@@ -57,9 +57,9 @@ export default function LogIn({ buttonTitle }) {
         //If success to create a new account, redirect to login page
         if (!res.error) {
           //Save data on local storage
-          localStorage.setItem("isAuthenticated", true);
-          localStorage.setItem("email", res.user.email);
-          localStorage.setItem("token", JSON.stringify(res.token));
+          sessionStorage.setItem("isAuthenticated", true);
+          sessionStorage.setItem("email", res.user.email);
+          sessionStorage.setItem("token", JSON.stringify(res.token));
 
           //Update the state of Auth providers
           /*dispatchIsAuthenticated(setIsAuthenticated(true));

@@ -70,7 +70,7 @@ export default function Question(props) {
   const cancelQuestion = (event) => {
     console.log(" the question index is : ", props.data.question.index);
     let data = {
-      gameCode: localStorage.getItem("gameCode"),
+      gameCode: sessionStorage.getItem("gameCode"),
       index: props.data.question.index,
     };
     gameInfo.socket.emit("cancelQuestion", data);
@@ -80,7 +80,7 @@ export default function Question(props) {
   const awardPoints = (event) => {
     if (answer != "") {
       let data = {
-        gameCode: localStorage.getItem("gameCode"),
+        gameCode: sessionStorage.getItem("gameCode"),
         index: props.data.question.index,
         answer: answer,
       };
@@ -97,14 +97,14 @@ export default function Question(props) {
       console.log("sending answer as: ", answer);
       if (gameInfo) {
         let data = {
-          gameCode: localStorage.getItem("gameCode"),
+          gameCode: sessionStorage.getItem("gameCode"),
           type: "TF",
           answer: answer,
         };
         console.log("sending: ", data);
         if (gameInfo.isTeacher) {
           gameInfo.socket.emit("setAnswer", data);
-          //localStorage.setItem("teacherAnswer", answer)
+          //sessionStorage.setItem("teacherAnswer", answer)
           //We are going to move the reload point to when the teacher clicks on award point
           //window.location.reload();
         } else {

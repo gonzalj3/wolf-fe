@@ -58,8 +58,8 @@ export default function JoinGame({ buttonTitle }) {
         if (!res.error) {
           //let name = nickName + " " + lastName;
           //Save data on local storage
-          localStorage.setItem("gameCode", gameCode);
-          localStorage.setItem("name", nickName);
+          sessionStorage.setItem("gameCode", gameCode);
+          sessionStorage.setItem("name", nickName);
 
           console.log("login successfully");
 

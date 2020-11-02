@@ -87,7 +87,7 @@ export default function GameBoard() {
         //let gameCode = "gameCode";
         socket.emit("registerSocket", { gameCode: res.gameCode });
         console.log("sent gamecode", res.gameCode);
-        localStorage.setItem("gameCode", res.gameCode);
+        sessionStorage.setItem("gameCode", res.gameCode);
         setData(res);
         setResponses(res.responses)
       })
@@ -178,14 +178,14 @@ export default function GameBoard() {
     let studentUpdate;
     if (finish.id == "roster") {
       studentUpdate = {
-        gameCode: localStorage.getItem("gameCode"),
+        gameCode: sessionStorage.getItem("gameCode"),
         to: "roster",
         from: source.droppableId,
         student: draggableId,
       };
     } else {
       studentUpdate = {
-        gameCode: localStorage.getItem("gameCode"),
+        gameCode: sessionStorage.getItem("gameCode"),
         to: destination.droppableId,
         from: source.droppableId,
         student: draggableId,

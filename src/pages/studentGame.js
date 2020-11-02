@@ -29,8 +29,8 @@ export default function StudentGame() {
   let [team, setTeam] = useState(studentCSS)
   let [openEndDialog, setOpenEndDialog] = useState(false)
 
-  const gameCode = localStorage.getItem("gameCode");
-  const name = localStorage.getItem("name");
+  const gameCode = sessionStorage.getItem("gameCode");
+  const name = sessionStorage.getItem("name");
   const socket = process.env.NODE_ENV === 'production' ? io(process.env.REACT_APP_WS_SERVER, {transports: ['websocket']}) : io(process.env.REACT_APP_WS_DEV_SERVER, {transports: ['websocket']})
   console.log(" soemthing fishy ")  
 
@@ -84,8 +84,8 @@ console.log("the process env : ", process.env.NODE_ENV)
       console.log("game over! data : ", data)
       if(gameCode == data.gameCode){
         //we open a dialog box here. 
-        localStorage.removeItem("gameCode")
-        localStorage.removeItem("name")
+        sessionStorage.removeItem("gameCode")
+        sessionStorage.removeItem("name")
         sessionStorage.removeItem("teamColor")
         sessionStorage.removeItem("socketRegistered")
 
@@ -118,7 +118,7 @@ console.log("the process env : ", process.env.NODE_ENV)
         value={{
           socket: socket,
           isTeacher: false,
-          student: localStorage.getItem("name"),
+          student: sessionStorage.getItem("name"),
         }}
       >
         <DragDropContext>
