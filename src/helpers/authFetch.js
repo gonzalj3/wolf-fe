@@ -1,5 +1,5 @@
 export const authFetch = async (url, config = {}) => {
-  let token = JSON.parse(sessionStorage.getItem("token")) || null;
+  let token = JSON.parse(localStorage.getItem("token")) || null;
   if (token) {
     config.headers = {
       authorization: "Bearer " + token.toString(),
