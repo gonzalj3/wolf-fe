@@ -43,7 +43,7 @@ console.log("about to join game room: ", gameCode, name);
 console.log("the process env : ", process.env.NODE_ENV)
 
   useEffect(() => {
-    if (gameCode === null){
+    if (sessionStorage.getItem("gameCode") === null){
       console.log(" we are now moving to different place gameCode")
       window.location.replace("/");
     } else {
