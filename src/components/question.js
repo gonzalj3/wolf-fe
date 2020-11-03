@@ -163,7 +163,7 @@ export default function Question(props) {
         console.log("type", question.question.type);
       }
     }
-    if (question && question.question && question.question.type == "TF") {
+    if (question && question.question && question.question.type == "TF" && !question.question.scored) {
       return (
         <div>
           <Card className={classes.questionContainer}>
