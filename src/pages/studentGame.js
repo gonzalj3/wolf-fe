@@ -93,6 +93,10 @@ console.log("the process env : ", process.env.NODE_ENV)
         setOpenEndDialog(true)
       }
     })
+    socket.on("teamPoint", (data) => {
+      //console.log("got a point : ", data);
+      setData(data)
+    });
 
 
   }, [])

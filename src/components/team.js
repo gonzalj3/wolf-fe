@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import { makeStyles } from "@material-ui/core";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
@@ -124,16 +124,16 @@ export default function Team(props) {
   const gameInfo = useContext(GameInfoContext);
   const [score, setScore] = useState(props.score);
   const socket = gameInfo.socket;
-
-  useEffect(() => {
-    socket.on("teamPointUpdate", (data) => {
+  console.log("our socket in team is : ", socket)
+  /*useEffect(() => {
+    socket.on("teamPoint", (data) => {
       console.log("got a point : ", data);
       if (data.team == props.id) {
         console.log("score : ", data.score);
         setScore(data.score);
       }
     });
-  });
+  }, [score]);*/
 
   function addPoint() {
     let data = {

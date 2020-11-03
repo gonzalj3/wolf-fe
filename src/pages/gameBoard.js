@@ -51,6 +51,7 @@ export default function GameBoard() {
   }
 
   useEffect(() => {
+    
     socket.on("newTeamUpdate", (data) => {
       console.log("We are getting new data about a new Team.");
       setData(data);
