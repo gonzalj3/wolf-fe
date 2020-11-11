@@ -1,18 +1,26 @@
 import React, { useState, useContext } from "react";
-import { Card, Button, makeStyles } from "@material-ui/core";
+import { Card, Button} from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+
 import CircleConfirm from "./circleConfirm.js";
 import { GameInfoContext } from "../context/GameInfoContext.js";
 import CorrectAnswer from "../components/correctAnswer.js";
 import StudentResponse from "../components/studentResponses.js";
+import StudentWaitBox from "../components/studentWait.js"
 
 const useStyles = makeStyles((theme) => ({
+  waitContainer: {
+    display: "flex",
+    marginLeft: "23vw",
+    marginTop: "15vh"
+  },
   questionContainer: {
     display: "flex",
     flexDirection: "column",
     padding: "10px",
     margin: "20px",
-    marginLeft: "100px",
-    marginRight: "100px",
+    marginLeft: "10vw",
+    marginRight: "10vw",
     backgroundColor: "#FAFAFA",
     height: "100%",
     flexShrink: 0,
@@ -45,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
   },
   answerButton: {
     //Bug below, cant get "primary" from theme to work here.
-    background: "#f57c00",
+    background: "#F8B941",
     margin: "10px",
     width: "100%",
     "&:hover": {
@@ -209,7 +217,7 @@ export default function Question(props) {
         </div>
       );
     } else {
-      return null;
+      return <div className={classes.waitContainer}><StudentWaitBox></StudentWaitBox></div>;
     }
   }
   return <AvailableQuestion data={props}></AvailableQuestion>;

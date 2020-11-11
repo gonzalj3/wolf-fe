@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexWrap: "wrap",
     flexDirection: "row",
-    padding: "16px",
+    paddingTop: "16px",
     backgroundColor: "#D3D3D3",
   },
 }));

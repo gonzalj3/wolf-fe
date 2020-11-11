@@ -16,20 +16,24 @@ import {
 const useStyle = makeStyles((theme) => ({
   teamName: {
     borderBottom: "solid black ",
-    padding: "10px",
+    //padding: "10px",
+    paddingLeft: "10px",
+    fontFamily: "Jaldi",
+    //textSizeAdjust: "50%"
+    //fontSize: "5vw"
   },
   card: {
     height: "50vh",
-    width: "220px",
+    width: "20vw",
     marginBottom: "10px",
-    marginRight: "25px",
+    marginRight: "2vw",
     borderRadius: "8px",
   },
   studentCard: {
     height: "26vh",
-    width: "220px",
+    width: "20vw",
     marginBottom: "10px",
-    marginRight: "25px",
+    marginRight: "2vw",
     borderRadius: "8px",
   },
   cardContent: {
@@ -39,10 +43,15 @@ const useStyle = makeStyles((theme) => ({
   scoreSection: {
     display: "flex",
     flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    alignItems:"center",
+    //alignContent:"center",
     borderBottom: "solid black ",
-    padding: "5px 0px 5px 0px",
+    //padding: "5px 0px 5px 0px",
     backgroundColor: "white",
-    height: "95px",
+    height: "10vh", 
+    width: "100%"
   },
   scoreSectionStudent: {
     display: "flex",
@@ -51,11 +60,13 @@ const useStyle = makeStyles((theme) => ({
     borderBottom: "solid black ",
     padding: "5px 0px 5px 0px",
     backgroundColor: "white",
-    height: "95px",
+    height: "10vh",
   },
   arrowSections: {
     display: "flex",
     flexDirection: "column",
+    paddingLeft: "1vw"
+    //height: "100%"
     /*padding: "0px 0px 0px 5px",
     fontSize: "large",*/
   },
@@ -63,20 +74,20 @@ const useStyle = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     padding: "0px 0px 0px 0px",
-    width: "50px",
-    height: "50px",
-    background: "white",
-    //fontSize: "large",*/
+    width: "3vw",
+    height: "2vw",
+    "& .MuiIconButton-label": {
+      pointerEvents: "none"
+    }
   },
   count: {
-    padding: "10px 0% 10px 30%",
-    fontSize: "75px",
+    fontSize: "5vh",
   },
   countStudent: {
-    //padding: "10px 40% 10px 50%",
-    fontSize: "75px",
+    fontSize: "5vh",
   },
-  arrows: { color: "black", fontSize: "45px", padding: "0px" },
+  arrows: { color: "black", fontSize: "8vw", padding: "0px",
+  },
   teamCollection: {
     minHeight: "150px",
     display: "flex",
@@ -202,7 +213,7 @@ export default function Team(props) {
         >
           <CardContent className={classes.cardContent}>
             <div className={classes.teamName}>
-              <Typography>{props.name}</Typography>
+              {`${props.name}`}
             </div>
             <div className={classes.scoreSectionStudent}>
               <div className={classes.countStudent}>{score}</div>
