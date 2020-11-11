@@ -54,10 +54,12 @@ const useStyles = makeStyles((theme) => ({
   answerButton: {
     //Bug below, cant get "primary" from theme to work here.
     background: "#F8B941",
-    margin: "10px",
+    margin: "2vw",
     width: "100%",
+    fontFamily: "Jaldi",
+    fontSize: "2.5vw",
     "&:hover": {
-      background: "#CC6A08",
+      background: "#dfa73b",
     },
   },
 }));
