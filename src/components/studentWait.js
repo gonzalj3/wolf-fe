@@ -10,11 +10,12 @@ const useStyles = makeStyles((theme) => ({
         fontFamily: "Helvetica"
     }
 }))
-const thing = "a string"
+//const thing = "a string"
 
 export default function StudentWaitBox(props) {
     const classes = useStyles()
+    console.log("question props ", props)
     return(
-    <Card className={classes.cardContainer}>{thing }</Card>
+    <Card className={classes.cardContainer}>{props.message}</Card>
     )
 }

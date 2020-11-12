@@ -19,11 +19,12 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     padding: "10px",
     margin: "20px",
-    marginLeft: "10vw",
-    marginRight: "10vw",
+    marginLeft: "3vw",
+    marginRight: "3vw",
+    //marginBottom: "10vh",
     backgroundColor: "#FAFAFA",
-    height: "100%",
-    flexShrink: 0,
+    //height: "100%",
+    //flexShrink: 0,
   },
   teacherButtonsContainer: {
     display: "flex",
@@ -54,12 +55,15 @@ const useStyles = makeStyles((theme) => ({
   answerButton: {
     //Bug below, cant get "primary" from theme to work here.
     background: "#F8B941",
-    margin: "2vw",
+    margin: "1vw",
     width: "100%",
+    height:"100%",
     fontFamily: "Jaldi",
-    fontSize: "2.5vw",
+    fontSize: "1.8vh",
     "&:hover": {
       background: "#dfa73b",
+      //fontSize: "1.6vh",
+      //height:"50%",
     },
   },
 }));
@@ -102,6 +106,7 @@ export default function Question(props) {
   };
 
   const relayAnswer = (event) => {
+    //removed answer requirement to stop getting student answers
     //Take the answer that has a check on it and send it through websockets.
     if (answer != "") {
       console.log("sending answer as: ", answer);
@@ -114,9 +119,6 @@ export default function Question(props) {
         console.log("sending: ", data);
         if (gameInfo.isTeacher) {
           gameInfo.socket.emit("setAnswer", data);
-          //sessionStorage.setItem("teacherAnswer", answer)
-          //We are going to move the reload point to when the teacher clicks on award point
-          //window.location.reload();
         } else {
           data.student = gameInfo.student;
           gameInfo.socket.emit("studentAnswer", data);
@@ -166,60 +168,77 @@ export default function Question(props) {
 
   function AvailableQuestion(props) {
     const question = props.data.data;
-
-    if (question) {
-      console.log("this is question", question);
-      if (question.question) {
-        console.log("type", question.question.type);
-      }
-    }
-    if (question && question.question && question.question.type == "TF" && !question.question.scored) {
-      return (
-        <div>
-          <Card className={classes.questionContainer}>
-            <div
-              className={
-                question.question.answer && !gameInfo.isTeacher
-                  ? classes.responseContainerBlock
-                  : classes.responseContainer
-              }
-            >
-              <Button
-                className={classes.answerButton}
-                variant={"contained"}
-                value={"true"}
-                onClick={selectAnswer}
-              >
-                True
-                <CircleConfirm
-                  title={"true"}
-                  selection={answer}
-                  lock={lock}
-                ></CircleConfirm>
-              </Button>
-              <Button
-                className={classes.answerButton}
-                variant={"contained"}
-                value={"false"}
-                onClick={selectAnswer}
-              >
-                False
-                <CircleConfirm
-                  title={"false"}
-                  selection={answer}
-                  lock={lock}
-                ></CircleConfirm>
-              </Button>
-            </div>
-            <div className={classes.responseContainer}>
-              <TeacherButtons></TeacherButtons>
-            </div>
-            <StudentResponse></StudentResponse>
-           </Card>
-        </div>
-      );
-    } else {
+    console.log("question", question)
+    if(!question ){
       return <div className={classes.waitContainer}><StudentWaitBox></StudentWaitBox></div>;
+    }
+
+    console.log("question last action:", question.lastAction)
+    switch(question.lastAction){
+      case 'new':
+        return (
+          <div>
+            <Card className={classes.questionContainer}>
+              <div
+                className={
+                  question.question.answer && !gameInfo.isTeacher
+                    ? classes.responseContainerBlock
+                    : classes.responseContainer
+                }
+              >
+                <Button
+                  className={classes.answerButton}
+                  variant={"contained"}
+                  value={"true"}
+                  onClick={selectAnswer}
+                >
+                  True
+                  <CircleConfirm
+                    title={"true"}
+                    selection={answer}
+                    lock={lock}
+                  ></CircleConfirm>
+                </Button>
+                <Button
+                  className={classes.answerButton}
+                  variant={"contained"}
+                  value={"false"}
+                  onClick={selectAnswer}
+                >
+                  False
+                  <CircleConfirm
+                    title={"false"}
+                    selection={answer}
+                    lock={lock}
+                  ></CircleConfirm>
+                </Button>
+              </div>
+              <div className={classes.responseContainer}>
+                <TeacherButtons></TeacherButtons>
+              </div>
+              <StudentResponse></StudentResponse>
+             </Card>
+          </div>
+        );
+        break;
+      case 'cancel':
+        console.log("question in cancel")
+
+        return <div className={classes.waitContainer} ><StudentWaitBox message="Stay Ready ..."></StudentWaitBox></div>;
+        break;
+      case 'stop':
+        console.log("question in stop")
+        return <div className={classes.waitContainer} ><StudentWaitBox message="Paused ..."></StudentWaitBox></div>;
+        break;
+      case 'point':
+        let messageAnswer = ""
+        if(answer === question.question.answer){
+          messageAnswer = "Correct!"
+        } else {
+          messageAnswer = "Incorrect"
+        }
+        return <div className={classes.waitContainer}><StudentWaitBox message={messageAnswer}></StudentWaitBox></div>;
+        break;
     }
   }
   return <AvailableQuestion data={props}></AvailableQuestion>;

@@ -89,11 +89,17 @@ const useStyle = makeStyles((theme) => ({
   arrows: { color: "black", fontSize: "8vw", padding: "0px",
   },
   teamCollection: {
-    minHeight: "150px",
+    //minHeight: "150px",
+    minHeight:"70%",
+    maxHeight: "70%",
+    //height: "50vh",
     display: "flex",
-    flexDirection: "row",
+    //flexDirection: "row",
     flexWrap: "wrap",
-    alignItems: "flex-start",
+    overflow: "scroll",
+    //justifyContent: "flex-start",
+    //alignItems: "stretch",
+    alignContent: "baseline"
   },
 }));
 
