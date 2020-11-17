@@ -45,10 +45,10 @@ export default function TeamPartition(props) {
       return null;
     }
   }
+//removed AddTeamFunctionality from line 51      <AddTeamFunctionality isTeacher={props.isTeacher}></AddTeamFunctionality>
 
   return (
     <div className={classes.container}>
-      <AddTeamFunctionality isTeacher={props.isTeacher}></AddTeamFunctionality>
 
       {props.data.TeamOrder.map((item) => {
         const team = props.data.droppable[item];
