@@ -212,7 +212,7 @@ export default function GameBoard() {
 
   function TeamsAndRoster(props) {
     const gameInfo = props.data;
-    console.log("we have a rosterlist in this : ", gameInfo);
+    if(gameInfo) {console.log("we have a rosterlist in this : ", gameInfo)}
     if (gameInfo) {
       return (
         <div className={classes.container}>

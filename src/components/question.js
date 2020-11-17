@@ -75,14 +75,14 @@ export default function Question(props) {
   const [answer, setAnswer] = useState("");
   const [lock, setLock] = useState(false);
   const gameInfo = useContext(GameInfoContext);
-  const [isShown, setIsShown] = useState(false);
-
+  //const [isShown, setIsShown] = useState(false);
+  const [pause, setPause] = useState(false)
   //const [circle, setCircle] = useState("false");
   //const question = ;
   //const data = props;
   const socket = gameInfo.socket;
   console.log("our socket in question is : ", socket)
-
+  console.log("gamestate : ", gameInfo)
   const cancelQuestion = (event) => {
     console.log(" the question index is : ", props.data.question.index);
     let data = {
@@ -113,7 +113,7 @@ export default function Question(props) {
     //if (answer != "") {
 
     //relay answer should probbly be called paused game
-      console.log("sending answer as: ", answer);
+      //console.log("sending answer as: ", answer);
       if (gameInfo) {
 /*        let data = {
           gameCode: sessionStorage.getItem("gameCode"),
@@ -128,6 +128,10 @@ export default function Question(props) {
             type: "TF",
             //answer: answer,
           };
+          console.log("switch on pause : ", pause)
+          let newPause = !pause
+          setPause(newPause)
+          console.log("switch on pause is now new and official: ", newPause, pause)
           gameInfo.socket.emit("setAnswer", data);
         } /*else {
           data.student = gameInfo.student;
@@ -165,7 +169,7 @@ export default function Question(props) {
           type: "TF",
           //answer: answer,
         };
-        gameInfo.socket.emit("setAnswer", data);
+        //gameInfo.socket.emit("setAnswer", data);
       } else if (!lock) {
         let data = {
           gameCode: sessionStorage.getItem("gameCode"),
@@ -186,12 +190,8 @@ export default function Question(props) {
     if (gameInfo.isTeacher) {
       return (
         <div className={classes.teacherButtonsContainer}>
-          <FormControlLabel label="Pause">
-            <Switch></Switch>
-          </FormControlLabel>
-          <Button variant={"contained"} className={classes.answerButton} onClick={relayAnswer}>
-            Stop Accepting Answers
-          </Button>
+          <FormControlLabel label="Pause" control={<Switch checked={pause} onClick={relayAnswer}></Switch>}></FormControlLabel>
+
           <Button variant={"contained"} className={classes.answerButton} onClick={awardPoints}>
             Award Points
           </Button>
@@ -228,6 +228,8 @@ export default function Question(props) {
     console.log("question last action:", question.lastAction)
     switch(question.lastAction){
       case 'new':
+        //setPause(false)
+
         return (
           <div>
             <Card className={classes.questionContainer}>
@@ -280,6 +282,54 @@ export default function Question(props) {
         break;
       case 'stop':
         console.log("question in stop")
+        setPause(true)
+
+        if(gameInfo.isTeacher){
+          return (
+            <div>
+              <Card className={classes.questionContainer}>
+                <div
+                  className={
+                    question.question.answer && !gameInfo.isTeacher
+                      ? classes.responseContainerBlock
+                      : classes.responseContainer
+                  }
+                >
+                  <Button
+                    className={classes.answerButton}
+                    variant={"contained"}
+                    value={"true"}
+                    onClick={selectAnswer}
+                  >
+                    True
+                    <CircleConfirm
+                      title={"true"}
+                      selection={answer}
+                      lock={lock}
+                    ></CircleConfirm>
+                  </Button>
+                  <Button
+                    className={classes.answerButton}
+                    variant={"contained"}
+                    value={"false"}
+                    onClick={selectAnswer}
+                  >
+                    False
+                    <CircleConfirm
+                      title={"false"}
+                      selection={answer}
+                      lock={lock}
+                    ></CircleConfirm>
+                  </Button>
+                </div>
+                <div className={classes.responseContainer}>
+                  <TeacherButtons></TeacherButtons>
+                </div>
+                <StudentResponse></StudentResponse>
+               </Card>
+            </div>
+          );
+        }
         return <div className={classes.waitContainer} ><StudentWaitBox message="Paused ..."></StudentWaitBox></div>;
         break;
       case 'point':

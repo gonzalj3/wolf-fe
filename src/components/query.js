@@ -53,7 +53,7 @@ export default function Query(props) {
   };
 
   const SetAnswerOrQuery = (props) => {
-    //console.log("the data.question looks like : ", props.data.question);
+    if(props && props.data && props.data.question){console.log("the data.question looks like : ", props.data.question)};
     if (
       props.data &&
       props.data.question &&
