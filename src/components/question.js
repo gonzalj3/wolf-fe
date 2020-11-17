@@ -109,15 +109,17 @@ export default function Question(props) {
   const relayAnswer = (event) => {
     //removed answer requirement to stop getting student answers
     //Take the answer that has a check on it and send it through websockets.
-    if (answer != "") {
+    //if (answer != "") {
+
+    //relay answer should probbly be called paused game
       console.log("sending answer as: ", answer);
       if (gameInfo) {
-        let data = {
+/*        let data = {
           gameCode: sessionStorage.getItem("gameCode"),
           type: "TF",
           answer: answer,
         };
-        console.log("sending: ", data);
+        console.log("sending: ", data);*/
 
         if (gameInfo.isTeacher) {
           let data = {
@@ -126,14 +128,15 @@ export default function Question(props) {
             //answer: answer,
           };
           gameInfo.socket.emit("setAnswer", data);
-        } else {
+        } /*else {
           data.student = gameInfo.student;
           gameInfo.socket.emit("studentAnswer", data);
           setLock(true);
-        }
+        }*/
         
       }
-    } else {
+    //}
+     /* else {
       if(gameInfo){
         if (gameInfo.isTeacher) {
           let data = {
@@ -144,12 +147,37 @@ export default function Question(props) {
           gameInfo.socket.emit("setAnswer", data);
         }
       }
-    }
+    }*/
   };
 
   const selectAnswer = (event) => {
+    //need to set a way to go between teacher and student
     if (!lock) {
       setAnswer(event.currentTarget.value);
+    }
+    if (gameInfo) {
+
+
+      if (gameInfo.isTeacher) {
+        let data = {
+          gameCode: sessionStorage.getItem("gameCode"),
+          type: "TF",
+          //answer: answer,
+        };
+        gameInfo.socket.emit("setAnswer", data);
+      } else if (!lock) {
+        let data = {
+          gameCode: sessionStorage.getItem("gameCode"),
+          type: "TF",
+          answer: event.currentTarget.value,
+        };
+        console.log("sending: ", data);
+
+        data.student = gameInfo.student;
+        gameInfo.socket.emit("studentAnswer", data);
+        setLock(true);
+      }
+      
     }
   };
 
@@ -169,11 +197,12 @@ export default function Question(props) {
         </div>
       );
     } else {
-      return (
+      /*return (
         <Button variant={"contained"} className={classes.answerButton} onClick={relayAnswer}>
           Submit
         </Button>
-      );
+      );*/
+      return null
     }
   };
 
