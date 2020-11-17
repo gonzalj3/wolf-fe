@@ -7,12 +7,12 @@ import { yellow } from "@material-ui/core/colors";
 
 const useStyle = makeStyles((theme) => ({
   container: {
-    width: "1500px",
+    width: "100%",
     display: "flex",
-    flexWrap: "wrap",
+    //flexWrap: "wrap",
     flexDirection: "row",
-    marginLeft: "25px",
-    marginRight: "25px",
+    //marginLeft: "25px",
+    //marginRight: "25px",
     justifyContent: "center",
   },
 }));

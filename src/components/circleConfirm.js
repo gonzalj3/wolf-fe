@@ -36,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
   },
   checkIconContainer: {
     position: "relative",
+    //width: "1vw"
     //backgroundColor: "white",
     /*length: "200px",
         width: "200px",*/

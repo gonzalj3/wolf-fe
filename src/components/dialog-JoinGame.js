@@ -16,6 +16,8 @@ const useStyles = makeStyles({
     color: "white",
     border: "none",
     textDecoration: "none",
+    fontFamily: "Jaldi",
+    fongSize: "1.5vw"
   },
 });
 

@@ -7,7 +7,8 @@ import { Draggable } from "react-beautiful-dnd";
 
 const useStyle = makeStyles((theme) => ({
   card: {
-    height: "9vh",
+    //height: "9vh",
+
     width: "9vh",
     minWidth: "9vh",
     borderRadius: "8px",
@@ -19,6 +20,13 @@ const useStyle = makeStyles((theme) => ({
     padding: "2px",
     fontSize: 12,
     wordBreak: "break-word",
+      [theme.breakpoints.up("sm")]: {
+        height: "9vh",
+      },
+      [theme.breakpoints.down("sm")]: {
+        height: "4vh",
+      },
+
   },
   cardContent: {
     margin: "0px",
