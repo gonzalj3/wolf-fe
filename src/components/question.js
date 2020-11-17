@@ -1,7 +1,8 @@
 import React, { useState, useContext } from "react";
 import { Card, Button} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-
+import Switch from "@material-ui/core/Switch";
+import FormControlLabel from '@material-ui/core/FormControlLabel'
 import CircleConfirm from "./circleConfirm.js";
 import { GameInfoContext } from "../context/GameInfoContext.js";
 import CorrectAnswer from "../components/correctAnswer.js";
@@ -185,6 +186,9 @@ export default function Question(props) {
     if (gameInfo.isTeacher) {
       return (
         <div className={classes.teacherButtonsContainer}>
+          <FormControlLabel label="Pause">
+            <Switch></Switch>
+          </FormControlLabel>
           <Button variant={"contained"} className={classes.answerButton} onClick={relayAnswer}>
             Stop Accepting Answers
           </Button>
