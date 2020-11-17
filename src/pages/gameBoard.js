@@ -22,7 +22,7 @@ const useStyle = makeStyles((theme) => ({
     flexDirection: "row",
     paddingTop: "16px",
     backgroundColor: "#F4F6FF",
-    width:"100vw"
+    width:"100%"
   },
   middlebar: {
     display: "flex",

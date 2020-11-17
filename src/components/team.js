@@ -14,19 +14,26 @@ import {
 } from "../context/GameInfoContext.js";
 
 const useStyle = makeStyles((theme) => ({
+  teamBar: {
+    height: "2vh"
+  },
   teamName: {
-    borderBottom: "solid black ",
+    //borderBottom: "solid black ",
     //padding: "10px",
     paddingLeft: "10px",
-    fontFamily: "Jaldi",
+    //fontFamily: "Jaldi",
     //textSizeAdjust: "50%"
     //fontSize: "5vw"
+    background: "white",
+    //color: "white",
+    //WebkitTextStroke: "1px rgba(0, 0, 0, .5)",
+
   },
   card: {
     height: "50vh",
     width: "20vw",
     marginBottom: "10px",
-    marginRight: "2vw",
+    marginLeft: "2vw",
     borderRadius: "8px",
   },
   studentCard: {
@@ -38,7 +45,7 @@ const useStyle = makeStyles((theme) => ({
   },
   cardContent: {
     padding: "0px 0px 0px 0px",
-    height: "100%",
+    //height: "100%",
   },
   scoreSection: {
     display: "flex",
@@ -47,7 +54,7 @@ const useStyle = makeStyles((theme) => ({
     justifyContent: "center",
     alignItems:"center",
     //alignContent:"center",
-    borderBottom: "solid black ",
+    //borderBottom: "solid black ",
     //padding: "5px 0px 5px 0px",
     backgroundColor: "white",
     height: "10vh", 
@@ -57,7 +64,7 @@ const useStyle = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "row",
     justifyContent: "center",
-    borderBottom: "solid black ",
+    //borderBottom: "solid black ",
     padding: "5px 0px 5px 0px",
     backgroundColor: "white",
     height: "10vh",
@@ -89,17 +96,14 @@ const useStyle = makeStyles((theme) => ({
   arrows: { color: "black", fontSize: "8vw", padding: "0px",
   },
   teamCollection: {
-    //minHeight: "150px",
-    minHeight:"70%",
-    maxHeight: "70%",
-    //height: "50vh",
+    height:"40vh",
     display: "flex",
-    //flexDirection: "row",
+    flexDirection: "row",
     flexWrap: "wrap",
-    overflow: "scroll",
-    //justifyContent: "flex-start",
-    //alignItems: "stretch",
-    alignContent: "baseline"
+    alignContent: "baseline",
+    "&:hover": {
+      overflow: "scroll"
+    }
   },
 }));
 
@@ -181,6 +185,8 @@ export default function Team(props) {
       <div>
         <Card className={classes.card} style={{ backgroundColor: props.color }}>
           <CardContent className={classes.cardContent}>
+          <div className={classes.teamBar}></div>
+
             <div className={classes.teamName}>
               <Typography>{props.name}</Typography>
             </div>
@@ -218,6 +224,7 @@ export default function Team(props) {
           style={{ backgroundColor: props.color }}
         >
           <CardContent className={classes.cardContent}>
+            <div className={classes.teamBar}></div>
             <div className={classes.teamName}>
               {`${props.name}`}
             </div>

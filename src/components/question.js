@@ -11,8 +11,9 @@ import StudentWaitBox from "../components/studentWait.js"
 const useStyles = makeStyles((theme) => ({
   waitContainer: {
     display: "flex",
-    marginLeft: "23vw",
-    marginTop: "15vh"
+    //marginLeft: "24vw",
+    marginTop: "5vh",
+    //margin: "auto"
   },
   questionContainer: {
     display: "flex",
@@ -117,12 +118,30 @@ export default function Question(props) {
           answer: answer,
         };
         console.log("sending: ", data);
+
         if (gameInfo.isTeacher) {
+          let data = {
+            gameCode: sessionStorage.getItem("gameCode"),
+            type: "TF",
+            //answer: answer,
+          };
           gameInfo.socket.emit("setAnswer", data);
         } else {
           data.student = gameInfo.student;
           gameInfo.socket.emit("studentAnswer", data);
           setLock(true);
+        }
+        
+      }
+    } else {
+      if(gameInfo){
+        if (gameInfo.isTeacher) {
+          let data = {
+            gameCode: sessionStorage.getItem("gameCode"),
+            type: "TF",
+            //answer: answer,
+          };
+          gameInfo.socket.emit("setAnswer", data);
         }
       }
     }
@@ -232,12 +251,15 @@ export default function Question(props) {
         break;
       case 'point':
         let messageAnswer = ""
-        if(answer === question.question.answer){
-          messageAnswer = "Correct!"
-        } else {
-          messageAnswer = "Incorrect"
+        if(!answer){
+        return <div className={classes.waitContainer} ><StudentWaitBox message="Stay Ready ..."></StudentWaitBox></div>;
         }
-        return <div className={classes.waitContainer}><StudentWaitBox message={messageAnswer}></StudentWaitBox></div>;
+        if(answer === question.question.answer){
+          messageAnswer = "    Correct!"
+        } else {
+          messageAnswer = "   Incorrect"
+        }
+        return <div className={classes.waitContainer}><StudentWaitBox message={messageAnswer} ></StudentWaitBox></div>;
         break;
     }
   }
