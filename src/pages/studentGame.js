@@ -59,6 +59,7 @@ console.log("the process env : ", process.env.NODE_ENV)
       //Need to add logic here (if we still get data here from joinGameRoom) to store a socket.id or something in order to remember the person. probably just teh person's returned name
       sessionStorage.setItem("socketRegistered", true)
       setData(gameData);
+      //return
     });
     socket.on("newTeamUpdate", (data) => {
       console.log("We are getting new data about a new Team.");

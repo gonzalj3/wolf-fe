@@ -262,6 +262,7 @@ export default function Question(props) {
         return <div className={classes.waitContainer}><StudentWaitBox message={messageAnswer} ></StudentWaitBox></div>;
         break;
     }
+    return null
   }
   return <AvailableQuestion data={props}></AvailableQuestion>;
 }
