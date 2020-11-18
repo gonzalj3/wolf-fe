@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Card, Button} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Switch from "@material-ui/core/Switch";
@@ -77,6 +77,13 @@ export default function Question(props) {
   const gameInfo = useContext(GameInfoContext);
   //const [isShown, setIsShown] = useState(false);
   const [pause, setPause] = useState(false)
+  useEffect(() => {
+    if(props.data && props.data.lastAction == "stop"){
+      console.log("pause here !!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+      setPause(true)
+    }
+  }, [])
+
   //const [circle, setCircle] = useState("false");
   //const question = ;
   //const data = props;
@@ -282,7 +289,11 @@ export default function Question(props) {
         break;
       case 'stop':
         console.log("question in stop")
-        setPause(true)
+        /*if(pause == true){
+          setPause(pause)
+        }else{
+          setPause(!pause)
+        }*/
 
         if(gameInfo.isTeacher){
           return (
