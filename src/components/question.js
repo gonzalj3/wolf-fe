@@ -75,7 +75,7 @@ export default function Question(props) {
   const [answer, setAnswer] = useState("");
   const [lock, setLock] = useState(false);
   const gameInfo = useContext(GameInfoContext);
-  //const [isShown, setIsShown] = useState(false);
+
   const [pause, setPause] = useState(false)
   useEffect(() => {
     if(props.data && props.data.lastAction == "stop"){
@@ -84,9 +84,6 @@ export default function Question(props) {
     }
   }, [])
 
-  //const [circle, setCircle] = useState("false");
-  //const question = ;
-  //const data = props;
   const socket = gameInfo.socket;
   console.log("our socket in question is : ", socket)
   console.log("gamestate : ", gameInfo)
