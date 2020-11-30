@@ -160,9 +160,9 @@ export default function Team(props) {
     let data = {
       team: props.id,
       gameCode: props.gameCode,
-      point: 1,
+      point: 5,
     };
-    setScore(score + 1);
+    setScore(score + 5);
     console.log("about to change points, data : ", data);
 
     socket.emit("pointChangeTeam", data);
@@ -172,9 +172,9 @@ export default function Team(props) {
     let data = {
       team: props.id,
       gameCode: props.gameCode,
-      point: -1,
+      point: -5,
     };
-    setScore(score - 1);
+    setScore(score - 5);
     console.log("about to change points, data : ", data);
 
     socket.emit("pointChangeTeam", data);
