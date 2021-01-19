@@ -1,69 +1,68 @@
-import React, { useState, useContext, useEffect } from "react";
-import { Card, Button} from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import Switch from "@material-ui/core/Switch";
-import FormControlLabel from '@material-ui/core/FormControlLabel'
-import CircleConfirm from "./circleConfirm.js";
-import { GameInfoContext } from "../context/GameInfoContext.js";
-import CorrectAnswer from "../components/correctAnswer.js";
-import StudentResponse from "../components/studentResponses.js";
-import StudentWaitBox from "../components/studentWait.js"
+import React, { useState, useContext, useEffect } from 'react';
+import { Card, Button } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import Switch from '@material-ui/core/Switch';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import CircleConfirm from './circleConfirm.js';
+import { GameInfoContext } from '../context/GameInfoContext.js';
+import CorrectAnswer from '../components/correctAnswer.js';
+import StudentResponse from '../components/studentResponses.js';
+import StudentWaitBox from '../components/studentWait.js';
 
 const useStyles = makeStyles((theme) => ({
   waitContainer: {
-    display: "flex",
+    display: 'flex',
     //marginLeft: "24vw",
-    marginTop: "5vh",
+    marginTop: '5vh',
     //margin: "auto"
   },
   questionContainer: {
-    display: "flex",
-    flexDirection: "column",
-    padding: "10px",
-    margin: "20px",
-    marginLeft: "3vw",
-    marginRight: "3vw",
+    display: 'flex',
+    flexDirection: 'column',
+    padding: '10px',
+    margin: '20px',
+    marginLeft: '3vw',
+    marginRight: '3vw',
     //marginBottom: "10vh",
-    backgroundColor: "#FAFAFA",
+    backgroundColor: '#FAFAFA',
     //height: "100%",
     //flexShrink: 0,
   },
   teacherButtonsContainer: {
-    display: "flex",
-    width: "100%",
+    display: 'flex',
+    width: '100%',
   },
   responseContainer: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "center",
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
     //pointerEvents: "none",
     //padding: "10px",
   },
   responseContainerBlock: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "center",
-    pointerEvents: "none",
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    pointerEvents: 'none',
   },
   resultContainer: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    paddingLeft: "25%",
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    paddingLeft: '25%',
   },
   result: {
-    width: "50%",
+    width: '50%',
   },
   answerButton: {
     //Bug below, cant get "primary" from theme to work here.
-    background: "#F8B941",
-    margin: "1vw",
-    width: "100%",
-    height:"100%",
-    fontFamily: "Jaldi",
-    fontSize: "1.8vh",
-    "&:hover": {
-      background: "#dfa73b",
+    background: '#F8B941',
+    margin: '1vw',
+    width: '100%',
+    height: '100%',
+    fontFamily: 'Jaldi',
+    '&:hover': {
+      background: '#dfa73b',
       //fontSize: "1.6vh",
       //height:"50%",
     },
@@ -72,41 +71,41 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Question(props) {
   const classes = useStyles();
-  const [answer, setAnswer] = useState("");
+  const [answer, setAnswer] = useState('');
   const [lock, setLock] = useState(false);
   const gameInfo = useContext(GameInfoContext);
 
-  const [pause, setPause] = useState(false)
+  const [pause, setPause] = useState(false);
   useEffect(() => {
-    if(props.data && props.data.lastAction == "stop"){
-      console.log("pause here !!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-      setPause(true)
+    if (props.data && props.data.lastAction == 'stop') {
+      console.log('pause here !!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+      setPause(true);
     }
-  }, [])
+  }, []);
 
   const socket = gameInfo.socket;
-  console.log("our socket in question is : ", socket)
-  console.log("gamestate : ", gameInfo)
+  console.log('our socket in question is : ', socket);
+  console.log('gamestate : ', gameInfo);
   const cancelQuestion = (event) => {
-    console.log(" the question index is : ", props.data.question.index);
+    console.log(' the question index is : ', props.data.question.index);
     let data = {
-      gameCode: sessionStorage.getItem("gameCode"),
+      gameCode: sessionStorage.getItem('gameCode'),
       index: props.data.question.index,
     };
-    gameInfo.socket.emit("cancelQuestion", data);
+    gameInfo.socket.emit('cancelQuestion', data);
     window.location.reload();
   };
 
   const awardPoints = (event) => {
-    if (answer != "") {
+    if (answer != '') {
       let data = {
-        gameCode: sessionStorage.getItem("gameCode"),
+        gameCode: sessionStorage.getItem('gameCode'),
         index: props.data.question.index,
         answer: answer,
       };
-      console.log("the data we are sending on award Points : ", data);
-      gameInfo.socket.emit("awardPoints", data);
-      
+      console.log('the data we are sending on award Points : ', data);
+      gameInfo.socket.emit('awardPoints', data);
+
       window.location.reload();
     }
   };
@@ -117,35 +116,38 @@ export default function Question(props) {
     //if (answer != "") {
 
     //relay answer should probbly be called paused game
-      //console.log("sending answer as: ", answer);
-      if (gameInfo) {
-/*        let data = {
+    //console.log("sending answer as: ", answer);
+    if (gameInfo) {
+      /*        let data = {
           gameCode: sessionStorage.getItem("gameCode"),
           type: "TF",
           answer: answer,
         };
         console.log("sending: ", data);*/
 
-        if (gameInfo.isTeacher) {
-          let data = {
-            gameCode: sessionStorage.getItem("gameCode"),
-            type: "TF",
-            //answer: answer,
-          };
-          console.log("switch on pause : ", pause)
-          let newPause = !pause
-          setPause(newPause)
-          console.log("switch on pause is now new and official: ", newPause, pause)
-          gameInfo.socket.emit("setAnswer", data);
-        } /*else {
+      if (gameInfo.isTeacher) {
+        let data = {
+          gameCode: sessionStorage.getItem('gameCode'),
+          type: 'TF',
+          //answer: answer,
+        };
+        console.log('switch on pause : ', pause);
+        let newPause = !pause;
+        setPause(newPause);
+        console.log(
+          'switch on pause is now new and official: ',
+          newPause,
+          pause
+        );
+        gameInfo.socket.emit('setAnswer', data);
+      } /*else {
           data.student = gameInfo.student;
           gameInfo.socket.emit("studentAnswer", data);
           setLock(true);
         }*/
-        
-      }
+    }
     //}
-     /* else {
+    /* else {
       if(gameInfo){
         if (gameInfo.isTeacher) {
           let data = {
@@ -165,28 +167,25 @@ export default function Question(props) {
       setAnswer(event.currentTarget.value);
     }
     if (gameInfo) {
-
-
       if (gameInfo.isTeacher) {
         let data = {
-          gameCode: sessionStorage.getItem("gameCode"),
-          type: "TF",
+          gameCode: sessionStorage.getItem('gameCode'),
+          type: 'TF',
           //answer: answer,
         };
         //gameInfo.socket.emit("setAnswer", data);
       } else if (!lock) {
         let data = {
-          gameCode: sessionStorage.getItem("gameCode"),
-          type: "TF",
+          gameCode: sessionStorage.getItem('gameCode'),
+          type: 'TF',
           answer: event.currentTarget.value,
         };
-        console.log("sending: ", data);
+        console.log('sending: ', data);
 
         data.student = gameInfo.student;
-        gameInfo.socket.emit("studentAnswer", data);
+        gameInfo.socket.emit('studentAnswer', data);
         setLock(true);
       }
-      
     }
   };
 
@@ -194,12 +193,23 @@ export default function Question(props) {
     if (gameInfo.isTeacher) {
       return (
         <div className={classes.teacherButtonsContainer}>
-          <FormControlLabel label="Pause" control={<Switch checked={pause} onClick={relayAnswer}></Switch>}></FormControlLabel>
+          <FormControlLabel
+            label="Pause"
+            control={<Switch checked={pause} onClick={relayAnswer}></Switch>}
+          ></FormControlLabel>
 
-          <Button variant={"contained"} className={classes.answerButton} onClick={awardPoints}>
+          <Button
+            variant={'contained'}
+            className={classes.answerButton}
+            onClick={awardPoints}
+          >
             Award Points
           </Button>
-          <Button variant={"contained"} className={classes.answerButton} onClick={cancelQuestion}>
+          <Button
+            variant={'contained'}
+            className={classes.answerButton}
+            onClick={cancelQuestion}
+          >
             Cancel
           </Button>
         </div>
@@ -210,7 +220,7 @@ export default function Question(props) {
           Submit
         </Button>
       );*/
-      return null
+      return null;
     }
   };
 
@@ -224,13 +234,17 @@ export default function Question(props) {
 
   function AvailableQuestion(props) {
     const question = props.data.data;
-    console.log("question", question)
-    if(!question ){
-      return <div className={classes.waitContainer}><StudentWaitBox></StudentWaitBox></div>;
+    console.log('question', question);
+    if (!question) {
+      return (
+        <div className={classes.waitContainer}>
+          <StudentWaitBox></StudentWaitBox>
+        </div>
+      );
     }
 
-    console.log("question last action:", question.lastAction)
-    switch(question.lastAction){
+    console.log('question last action:', question.lastAction);
+    switch (question.lastAction) {
       case 'new':
         //setPause(false)
 
@@ -246,26 +260,26 @@ export default function Question(props) {
               >
                 <Button
                   className={classes.answerButton}
-                  variant={"contained"}
-                  value={"true"}
+                  variant={'contained'}
+                  value={'true'}
                   onClick={selectAnswer}
                 >
                   True
                   <CircleConfirm
-                    title={"true"}
+                    title={'true'}
                     selection={answer}
                     lock={lock}
                   ></CircleConfirm>
                 </Button>
                 <Button
                   className={classes.answerButton}
-                  variant={"contained"}
-                  value={"false"}
+                  variant={'contained'}
+                  value={'false'}
                   onClick={selectAnswer}
                 >
                   False
                   <CircleConfirm
-                    title={"false"}
+                    title={'false'}
                     selection={answer}
                     lock={lock}
                   ></CircleConfirm>
@@ -275,24 +289,28 @@ export default function Question(props) {
                 <TeacherButtons></TeacherButtons>
               </div>
               <StudentResponse></StudentResponse>
-             </Card>
+            </Card>
           </div>
         );
         break;
       case 'cancel':
-        console.log("question in cancel")
+        console.log('question in cancel');
 
-        return <div className={classes.waitContainer} ><StudentWaitBox message="Stay Ready ..."></StudentWaitBox></div>;
+        return (
+          <div className={classes.waitContainer}>
+            <StudentWaitBox message="Stay Ready ..."></StudentWaitBox>
+          </div>
+        );
         break;
       case 'stop':
-        console.log("question in stop")
+        console.log('question in stop');
         /*if(pause == true){
           setPause(pause)
         }else{
           setPause(!pause)
         }*/
 
-        if(gameInfo.isTeacher){
+        if (gameInfo.isTeacher) {
           return (
             <div>
               <Card className={classes.questionContainer}>
@@ -305,26 +323,26 @@ export default function Question(props) {
                 >
                   <Button
                     className={classes.answerButton}
-                    variant={"contained"}
-                    value={"true"}
+                    variant={'contained'}
+                    value={'true'}
                     onClick={selectAnswer}
                   >
                     True
                     <CircleConfirm
-                      title={"true"}
+                      title={'true'}
                       selection={answer}
                       lock={lock}
                     ></CircleConfirm>
                   </Button>
                   <Button
                     className={classes.answerButton}
-                    variant={"contained"}
-                    value={"false"}
+                    variant={'contained'}
+                    value={'false'}
                     onClick={selectAnswer}
                   >
                     False
                     <CircleConfirm
-                      title={"false"}
+                      title={'false'}
                       selection={answer}
                       lock={lock}
                     ></CircleConfirm>
@@ -334,26 +352,38 @@ export default function Question(props) {
                   <TeacherButtons></TeacherButtons>
                 </div>
                 <StudentResponse></StudentResponse>
-               </Card>
+              </Card>
             </div>
           );
         }
-        return <div className={classes.waitContainer} ><StudentWaitBox message="Paused ..."></StudentWaitBox></div>;
+        return (
+          <div className={classes.waitContainer}>
+            <StudentWaitBox message="Paused ..."></StudentWaitBox>
+          </div>
+        );
         break;
       case 'point':
-        let messageAnswer = ""
-        if(!answer){
-        return <div className={classes.waitContainer} ><StudentWaitBox message="Stay Ready ..."></StudentWaitBox></div>;
+        let messageAnswer = '';
+        if (!answer) {
+          return (
+            <div className={classes.waitContainer}>
+              <StudentWaitBox message="Stay Ready ..."></StudentWaitBox>
+            </div>
+          );
         }
-        if(answer === question.question.answer){
-          messageAnswer = "    Correct!"
+        if (answer === question.question.answer) {
+          messageAnswer = '    Correct!';
         } else {
-          messageAnswer = "   Incorrect"
+          messageAnswer = '   Incorrect';
         }
-        return <div className={classes.waitContainer}><StudentWaitBox message={messageAnswer} ></StudentWaitBox></div>;
+        return (
+          <div className={classes.waitContainer}>
+            <StudentWaitBox message={messageAnswer}></StudentWaitBox>
+          </div>
+        );
         break;
     }
-    return null
+    return null;
   }
   return <AvailableQuestion data={props}></AvailableQuestion>;
 }

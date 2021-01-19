@@ -12,8 +12,8 @@ import { makeStyles } from "@material-ui/core";
 import { DragDropContext } from "react-beautiful-dnd";
 import { authFetch } from "../helpers/authFetch.js";
 import { GameInfoProvider } from "../context/GameInfoContext.js";
-import Button from '@material-ui/core/Button';
-import EndGame from "../components/dialog-EndGame.js"
+import Button from "@material-ui/core/Button";
+import EndGame from "../components/dialog-EndGame.js";
 
 const useStyle = makeStyles((theme) => ({
   container: {
@@ -22,43 +22,50 @@ const useStyle = makeStyles((theme) => ({
     flexDirection: "row",
     paddingTop: "16px",
     backgroundColor: "#F4F6FF",
-    width:"100%"
+    width: "100%",
   },
   middlebar: {
     display: "flex",
     flexDirection: "row",
     flexWrap: "nowrap",
     width: "95%",
+    paddingLeft: "5vw",
   },
   containerLarger: {
     backgroundColor: "#F4F6FF",
     display: "flex",
     flexDirection: "row",
-
   },
-
 }));
 
 export default function GameBoard() {
   const classes = useStyle();
 
   let [data, setData] = useState(null);
-  let [studentResponses, setResponses] = useState([{name:"none", team:"none", response:"none"}])
-  const socket = process.env.NODE_ENV === 'production' ? io(process.env.REACT_APP_WS_SERVER, {transports: ['websocket']}) : io(process.env.REACT_APP_WS_DEV_SERVER, {transports: ['websocket']})
+  let [studentResponses, setResponses] = useState([
+    { name: "none", team: "none", response: "none" },
+  ]);
+  const socket =
+    process.env.NODE_ENV === "production"
+      ? io(process.env.REACT_APP_WS_SERVER, { transports: ["websocket"] })
+      : io(process.env.REACT_APP_WS_DEV_SERVER, { transports: ["websocket"] });
 
-  const url = process.env.NODE_ENV === 'production' ? `${process.env.REACT_APP_SERVER_URL}api/game/current` : `${process.env.REACT_APP_DEV_SERVER_URL}api/game/current`
+  const url =
+    process.env.NODE_ENV === "production"
+      ? `${process.env.REACT_APP_SERVER_URL}api/game/current`
+      : `${process.env.REACT_APP_DEV_SERVER_URL}api/game/current`;
   let teacherOrangeNavBar = {
     color: "primary",
-  }
+  };
 
   useEffect(() => {
-    
     socket.on("newTeamUpdate", (data) => {
       console.log("We are getting new data about a new Team.");
       setData(data);
     });
     socket.on("getGameEvent", (data) => {
-      console.log("on hi got some data : ", data);
+      //console.log('on hi got some data : ', data);
+      setData(data);
     });
     socket.on("newStudent", (data) => {
       console.log("new student: ", data);
@@ -66,7 +73,7 @@ export default function GameBoard() {
     });
     socket.on("newQuestionUpdate", (data) => {
       console.log("the data we have in newQuestionUpdate", data);
-      setResponses(data.responses)
+      setResponses(data.responses);
 
       setData(data);
     });
@@ -78,7 +85,7 @@ export default function GameBoard() {
       // newData.responses = data
       // setData(newData)
       //setResponses(data)
-      setResponses(responses)
+      setResponses(responses);
     });
     //Ensure that we are authorized to fetch data.
     authFetch(url)
@@ -91,15 +98,15 @@ export default function GameBoard() {
         console.log("sent gamecode", res.gameCode);
         sessionStorage.setItem("gameCode", res.gameCode);
         setData(res);
-        setResponses(res.responses)
+        setResponses(res.responses);
       })
       .catch((error) => {
         console.log("error", error);
       });
 
-      return ()=>{
-        console.log("unmounted gameboard")
-      }
+    return () => {
+      console.log("unmounted gameboard");
+    };
   }, []);
 
   function onDragEnd(result) {
@@ -110,9 +117,7 @@ export default function GameBoard() {
       console.log("nodestination");
       return;
     }
-    if (
-      destination.droppableId === source.droppableId
-    ) {
+    if (destination.droppableId === source.droppableId) {
       console.log("droppable adn index same");
 
       return;
@@ -212,7 +217,9 @@ export default function GameBoard() {
 
   function TeamsAndRoster(props) {
     const gameInfo = props.data;
-    if(gameInfo) {console.log("we have a rosterlist in this : ", gameInfo)}
+    if (gameInfo) {
+      console.log("we have a rosterlist in this : ", gameInfo);
+    }
     if (gameInfo) {
       return (
         <div className={classes.container}>
@@ -222,7 +229,8 @@ export default function GameBoard() {
             socket={socket}
           ></TeamPartition>
           <div className={classes.middlebar}>
-          <Roster rosterList={gameInfo}></Roster><EndGame></EndGame>
+            <Roster rosterList={gameInfo}></Roster>
+            <EndGame></EndGame>
           </div>
         </div>
       );
@@ -230,17 +238,20 @@ export default function GameBoard() {
       return null;
     }
   }
-  //scoreboard and report button removed. 
+  //scoreboard and report button removed.
 
-
-  
   return (
-    <div >
+    <div>
       <NavBar data={teacherOrangeNavBar}>
         <GameCodeVerifier data={data} />
       </NavBar>
       <GameInfoProvider
-        value={{ socket: socket, isTeacher: true, gameState: data , responses: studentResponses}}
+        value={{
+          socket: socket,
+          isTeacher: true,
+          gameState: data,
+          responses: studentResponses,
+        }}
       >
         <DragDropContext onDragEnd={onDragEnd}>
           <TeamsAndRoster data={data} />

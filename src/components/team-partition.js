@@ -1,37 +1,37 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core";
-import Team from "../components/team";
-import { IconButton } from "@material-ui/core";
-import AddIcon from "@material-ui/icons/Add";
-import { yellow } from "@material-ui/core/colors";
+import React from 'react';
+import { makeStyles } from '@material-ui/core';
+import Team from '../components/team';
+import { IconButton } from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add';
+import { yellow } from '@material-ui/core/colors';
 
 const useStyle = makeStyles((theme) => ({
   container: {
-    width: "100%",
-    display: "flex",
+    width: '100%',
+    display: 'flex',
     //flexWrap: "wrap",
-    flexDirection: "row",
+    flexDirection: 'row',
     //marginLeft: "25px",
     //marginRight: "25px",
-    justifyContent: "center",
+    justifyContent: 'center',
   },
 }));
 
 export default function TeamPartition(props) {
   const classes = useStyle();
   const addTeam = () => {
-    console.log("we are adding a team.");
+    console.log('we are adding a team.');
     if (props.socket) {
-      props.socket.emit("newTeam", {
+      props.socket.emit('newTeam', {
         room: props.data.gameCode,
       });
     } else {
-      console.log("we do not have any socket: ", props.socket);
+      console.log('we do not have any socket: ', props.socket);
     }
   };
 
   function AddTeamFunctionality(props) {
-    console.log("************ isTeacher:", props.isTeacher);
+    console.log('************ isTeacher:', props.isTeacher);
 
     if (props.isTeacher) {
       return (
@@ -45,17 +45,16 @@ export default function TeamPartition(props) {
       return null;
     }
   }
-//removed AddTeamFunctionality from line 51      <AddTeamFunctionality isTeacher={props.isTeacher}></AddTeamFunctionality>
+  //removed AddTeamFunctionality from line 51      <AddTeamFunctionality isTeacher={props.isTeacher}></AddTeamFunctionality>
 
   return (
     <div className={classes.container}>
-
       {props.data.TeamOrder.map((item) => {
         const team = props.data.droppable[item];
-
+        console.log('students: ', props.data.students);
         return (
           <Team
-          key={team.id}
+            key={team.id}
             id={team.id}
             name={team.name}
             score={team.score}
