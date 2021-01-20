@@ -1,106 +1,106 @@
-import React, { useContext, useState } from 'react';
-import { makeStyles } from '@material-ui/core';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
-import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
-import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
-import { Droppable } from 'react-beautiful-dnd';
-import Student from '../components/student-Card';
-import { IconButton } from '@material-ui/core';
+import React, { useContext, useState } from "react";
+import { makeStyles } from "@material-ui/core";
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+import Typography from "@material-ui/core/Typography";
+import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
+import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
+import { Droppable } from "react-beautiful-dnd";
+import Student from "../components/student-Card";
+import { IconButton } from "@material-ui/core";
 import {
   GameInfoContext,
   GameInfoProvider,
-} from '../context/GameInfoContext.js';
+} from "../context/GameInfoContext.js";
 
 const useStyle = makeStyles((theme) => ({
   teamBar: {
-    height: '2vh',
+    height: "2vh",
   },
   teamName: {
     //borderBottom: "solid black ",
     //padding: "10px",
-    paddingLeft: '10px',
+    paddingLeft: "10px",
     //fontFamily: "Jaldi",
     //textSizeAdjust: "50%"
     //fontSize: "5vw"
-    background: 'white',
+    background: "white",
     //color: "white",
     //WebkitTextStroke: "1px rgba(0, 0, 0, .5)",
   },
   card: {
-    height: '50vh',
-    width: '20vw',
-    marginBottom: '10px',
-    marginLeft: '2vw',
-    borderRadius: '8px',
+    height: "50vh",
+    width: "20vw",
+    marginBottom: "10px",
+    marginLeft: "2vw",
+    borderRadius: "8px",
   },
   studentCard: {
-    height: '26vh',
-    width: '20vw',
-    marginBottom: '10px',
-    marginRight: '2vw',
-    borderRadius: '8px',
+    height: "26vh",
+    width: "20vw",
+    marginBottom: "10px",
+    marginRight: "2vw",
+    borderRadius: "8px",
   },
   cardContent: {
-    padding: '0px 0px 0px 0px',
+    padding: "0px 0px 0px 0px",
     //height: "100%",
   },
   scoreSection: {
-    display: 'flex',
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-    alignItems: 'center',
+    display: "flex",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    alignItems: "center",
     //alignContent:"center",
     //borderBottom: "solid black ",
     //padding: "5px 0px 5px 0px",
-    backgroundColor: 'white',
-    height: '10vh',
-    width: '100%',
+    backgroundColor: "white",
+    height: "10vh",
+    width: "100%",
   },
   scoreSectionStudent: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'center',
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
     //borderBottom: "solid black ",
-    padding: '5px 0px 5px 0px',
-    backgroundColor: 'white',
-    height: '10vh',
+    padding: "5px 0px 5px 0px",
+    backgroundColor: "white",
+    height: "10vh",
   },
   arrowSections: {
-    display: 'flex',
-    flexDirection: 'column',
-    paddingLeft: '1vw',
+    display: "flex",
+    flexDirection: "column",
+    paddingLeft: "1vw",
     //height: "100%"
     /*padding: "0px 0px 0px 5px",
     fontSize: "large",*/
   },
   arrowButton: {
-    display: 'flex',
-    flexDirection: 'column',
-    padding: '0px 0px 0px 0px',
-    width: '3vw',
-    height: '2vw',
-    '& .MuiIconButton-label': {
-      pointerEvents: 'none',
+    display: "flex",
+    flexDirection: "column",
+    padding: "0px 0px 0px 0px",
+    width: "3vw",
+    height: "2vw",
+    "& .MuiIconButton-label": {
+      pointerEvents: "none",
     },
   },
   count: {
-    fontSize: '5vh',
+    fontSize: "5vh",
   },
   countStudent: {
-    fontSize: '5vh',
+    fontSize: "5vh",
   },
-  arrows: { color: 'black', fontSize: '8vw', padding: '0px' },
+  arrows: { color: "black", fontSize: "8vw", padding: "0px" },
   teamCollection: {
-    height: '40vh',
-    display: 'flex',
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    alignContent: 'baseline',
-    '&:hover': {
-      overflow: 'scroll',
+    height: "40vh",
+    display: "flex",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    alignContent: "baseline",
+    "&:hover": {
+      overflow: "scroll",
     },
   },
 }));
@@ -143,7 +143,7 @@ export default function Team(props) {
   const gameInfo = useContext(GameInfoContext);
   const [score, setScore] = useState(props.score);
   const socket = gameInfo.socket;
-  console.log('our socket in team is : ', socket);
+  console.log("our socket in team is : ", socket);
   /*useEffect(() => {
     socket.on("teamPoint", (data) => {
       console.log("got a point : ", data);
@@ -161,9 +161,9 @@ export default function Team(props) {
       point: 1,
     };
     setScore(score + 1);
-    console.log('about to change points, data : ', data);
+    console.log("about to change points, data : ", data);
 
-    socket.emit('pointChangeTeam', data);
+    socket.emit("pointChangeTeam", data);
   }
 
   function subtractPoint() {
@@ -173,9 +173,9 @@ export default function Team(props) {
       point: -1,
     };
     setScore(score - 1);
-    console.log('about to change points, data : ', data);
+    console.log("about to change points, data : ", data);
 
-    socket.emit('pointChangeTeam', data);
+    socket.emit("pointChangeTeam", data);
   }
 
   if (props.isTeacher) {
