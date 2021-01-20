@@ -38,7 +38,7 @@ const useStyle = makeStyles((theme) => ({
 
   hand: {
     gridArea: " 1 / 1 / 3 / 3 ",
-    marginLeft: "7vw",
+    marginLeft: "3vw",
   },
 }));
 
