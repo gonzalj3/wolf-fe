@@ -72,27 +72,21 @@ export default function Question(props) {
   const classes = useStyles();
   const [answer, setAnswer] = useState("");
   const [lock, setLock] = useState(false);
-  console.log("table is ", sessionStorage.getItem("table"));
-  const storageTable = sessionStorage.getItem("table");
-  const [table, setTable] = useState(storageTable);
-  //setTable(storageTable);
-  console.log("table is useState ", table);
+  const [table, setTable] = useState(
+    JSON.parse(sessionStorage.getItem("table")) === true
+  );
   const gameInfo = useContext(GameInfoContext);
-
   const [pause, setPause] = useState(false);
+
   useEffect(() => {
     if (props.data && props.data.lastAction == "stop") {
-      console.log("pause here !!!!!!!!!!!!!!!!!!!!!!!!!!!!");
       setPause(true);
     }
-    //setTable(sessionStorage.getItem("table"));
   }, []);
 
   const socket = gameInfo.socket;
-  console.log("our socket in question is : ", socket);
-  console.log("gamestate : ", gameInfo);
+
   const cancelQuestion = (event) => {
-    console.log(" the question index is : ", props.data.question.index);
     let data = {
       gameCode: sessionStorage.getItem("gameCode"),
       index: props.data.question.index,
@@ -108,7 +102,6 @@ export default function Question(props) {
         index: props.data.question.index,
         answer: answer,
       };
-      console.log("the data we are sending on award Points : ", data);
       gameInfo.socket.emit("awardPoints", data);
 
       window.location.reload();

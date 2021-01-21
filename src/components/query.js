@@ -9,14 +9,12 @@ const useStyle = makeStyles((theme) => ({
     flexDirection: "row",
     marginBottom: "10px",
     backgroundColor: "#F4F6FF",
-
   },
   setQuestion: {
     display: "flex",
     justifyContent: "center",
     flexDirection: "row",
     marginBottom: "10px",
-
   },
   students: {
     display: "flex",
@@ -34,7 +32,6 @@ const useStyle = makeStyles((theme) => ({
     flexWrap: "nowrap",
     backgroundColor: "#F4F6FF",
     overflow: "auto",
-
   },
   font: {
     fontSize: 10,
@@ -53,7 +50,9 @@ export default function Query(props) {
   };
 
   const SetAnswerOrQuery = (props) => {
-    if(props && props.data && props.data.question){console.log("the data.question looks like : ", props.data.question)};
+    if (props && props.data && props.data.question) {
+      console.log("the data.question looks like : ", props.data.question);
+    }
     if (
       props.data &&
       props.data.question &&
